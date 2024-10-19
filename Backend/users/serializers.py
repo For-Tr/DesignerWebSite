@@ -94,8 +94,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return verification_url
 
     def send_verification_email(self, email, verification_url):
-        subject = 'Trans.Members邮箱验证'
-        message = f'点击链接以完成注册 {verification_url}'
+        subject = 'PBuilder.verify'
+        message = f'click this link to verify your email {verification_url}'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [email]
 
