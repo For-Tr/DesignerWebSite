@@ -1,0 +1,45 @@
+
+
+@import 'default/variables';
+@import 'default/mixins';
+@import 'default/typography';
+@import 'default/base';
+@import 'default/reset';
+@import 'default/animations';
+@import 'default/shortcode';
+@import 'default/preloader';
+
+/*--------------------------------
+	Elements Styles
+------------------------------------*/
+
+@import 'elements/button';
+@import 'elements/section-title';
+@import 'elements/progress-bar';
+@import 'elements/portfolio';
+@import 'elements/story';
+@import 'elements/service';
+@import 'elements/award';
+@import 'elements/blog';
+@import 'elements/bradcaump';
+@import 'elements/blog-details';
+@import 'elements/paralax';
+@import 'elements/contact';
+@import 'elements/fullpage';
+@import 'elements/extra';
+@import 'elements/hooper-slider';
+@import 'elements/404';
+
+/*----------------------------------
+	Template Styles
+-----------------------------------*/
+
+@import 'template/preview';
+@import 'template/header';
+@import 'template/navigation-drawer';
+@import 'template/banner';
+@import 'template/portfolio-details';
+@import 'template/custom-components';
+@import 'template/multiscroll-home';
+@import 'template/footer';
+@import 'template/responsive';
