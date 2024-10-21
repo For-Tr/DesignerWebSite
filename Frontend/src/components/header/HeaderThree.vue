@@ -11,10 +11,14 @@
     >
     <div class="purchase-button" style="padding-left: 2vw;" v-if="hasLogin">
         <a
-          @click="goLogin"
-          >Welcome</a
+          @click="goProfile"
+          >{{ username }}</a
         >
+        <a  @click="logOut">
+          logout
+        </a>
       </div>
+      
     <div class="purchase-button" style="padding-left: 2vw;" v-else>
         <a
           target="_blank"
@@ -63,7 +67,7 @@
 
     <v-app-bar class="header header-flat" height="116" flat>
       <router-link to="/" class="logo">
-        <img src="../../assets/img/logo/logo.jpg" alt="Rainfo" style="height: 5vw;"
+        <img src="../../assets/img/logo/logo.jpg" alt="PBuilder" style="height: 5vw;"
         />
       </router-link>
       <!-- End brand logo -->
@@ -89,9 +93,12 @@
         <div class="text-right purchase-button" v-if="hasLogin">
         <a
           target="_blank"
-          @click="goLogin"
-          >Welcome</a
+          @click="goProfile"
+          >{{ username }}</a
         >
+        <a style="margin-left: 1vw;" @click="logOut">
+          logout
+        </a>
       </div>
         <div class="text-right purchase-button" v-else>
         <a
@@ -120,18 +127,24 @@
         { title: "Contact", to: "/contact" },
       ],
       icon: "menu",
-      email: '',
       hasLogin: false,
+      username: '',
     }),
     methods: {
       goLogin() {
-        this.$router.push({name: 'login', querry: {
-          date: new Date().getTime()
-        }})
-      }                                                                          
+        this.$router.push({name: 'login'})
+      },
+      goProfile() {
+        this.$router.push({name: 'profile'})
+      },
+      logOut() {
+        localStorage.clear()
+        alert('Logout Successfully')
+        location.reload()
+      }                                                                           
     },
     mounted() {
-      authorization().then((data) => [this.hasLogin, this.email] = data);
+      authorization().then((data) => [this.hasLogin, this.username] = data);
     }
   };
 </script>

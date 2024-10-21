@@ -12,6 +12,20 @@ from notes_back import settings
 from users.models import User, email_reset
 
 
+# 用户序列化
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'nickname',
+            'avatar',
+            'mobile',
+            'description'
+        ]
+
+
 class UserSerializers(serializers.ModelSerializer):  # 登录专用返回人员usertype的
     usertype = serializers.CharField(
         source="get_usertype_display", read_only=True)
@@ -19,6 +33,7 @@ class UserSerializers(serializers.ModelSerializer):  # 登录专用返回人员u
     class Meta:
         model = User
         fields = '__all__'
+
 
 class UserDescSerializer(serializers.ModelSerializer):
     """于文章列表中引用的嵌套序列化器"""
@@ -60,11 +75,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
         return attrs
 
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            password = validated_data.pop('password')
+            instance.set_password(password)
+        return super().update(instance, validated_data)
+
     def create(self, validated_data):
         email = validated_data.get('email')
         password = validated_data.get('password')
         username = validated_data.get('username')
-
 
         user = User.objects.create_user(password=password, username=username, email=email)
 
@@ -100,7 +120,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         recipient_list = [email]
 
         send_mail(subject, message, from_email, recipient_list)
-
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

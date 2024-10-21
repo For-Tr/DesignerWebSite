@@ -1,0 +1,334 @@
+<!-- 用户资料设置 -->
+
+<template>
+    <div>
+        <HeaderThree />
+        <div class="banner-content">
+            <h1>
+                Personal Info Studio: Tune and refine<br />
+                your details with creative control. 
+            </h1>
+             <div class="content-list">
+      <div class="list-title">Options</div>
+
+        <div class="list-content">
+          <div class="edit-view">
+            <div class="item flex-view">
+            <div class="label">Avatar</div>
+            <div class="right-box avatar-box flex-view">
+
+              <img v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">
+              <img v-else src="../assets/images/avatar.jpg" class="avatar">
+              <div class="change-tips flex-view">
+                <v-file-input
+                    accept="image/png, image/jpeg, image/bmp"
+                    label="Avatar"
+                    placeholder="Pick an avatar"
+                    @change="beforeUpload"
+                ></v-file-input>
+                <p class="tip">The image format supports GIF, PNG, JPEG, and the size is not less than 200 PX and less than 4 MB</p>
+              </div>
+            </div>
+          </div>
+            <div class="item flex-view">
+              <div class="label">Name</div>
+              <div class="right-box">
+                <input type="text" v-model="tData.form.nickname" placeholder="Enter your name" maxlength="20" class="input-dom">
+  
+              </div>
+            </div>
+            <div class="item flex-view">
+              <div class="label">Phone number</div>
+              <div class="right-box">
+                <input type="text" v-model="tData.form.mobile" placeholder="Enter your phone number" maxlength="100"
+                  class="input-dom web-input">
+              </div>
+            </div>
+            <div class="item flex-view">
+            <div class="label">Intro</div>
+            <div class="right-box">
+              <textarea v-model="tData.form.description" placeholder="Introduce yourself" maxlength="200" class="intro">
+              </textarea>
+              <p class="tip">Limited to 200 words</p>
+            </div>
+          </div>
+            <div class="item flex-view">
+
+            </div>
+            <div class="purchase-button">
+                <a
+                target="_blank"
+                @click="handleEdit"
+                >Save</a
+                >
+            </div>
+            <div class="operation">
+              <a class="forget-pwd"  @click="handleChangepassword" style="text-align: right;">Change your password?Click here!</a>
+            </div>
+            
+          </div>
+          
+        </div>
+
+    </div>
+          </div>
+       
+    </div>
+    
+  </template>
+ <script>
+ import axios from "axios";
+import HeaderThree from "../components/header/HeaderThree";
+import {BASE_URL} from "../utils/BASE"
+import authorization from "../utils/authorization"
+export default {
+   components: {
+       HeaderThree,
+   },
+ data() {
+   return {
+    loading: false,
+      tData: {
+        form: { 
+          avatar: undefined,
+          avatarFile: undefined,
+          nickname: undefined,
+          email: undefined,
+          mobile: undefined,
+          description: undefined,
+        }
+      },
+
+   };
+ },                              
+
+ methods: {
+    getUserInfo () {
+        this.loading = true
+        let email = localStorage.getItem('email')
+        axios.get("api/getuser/", {params : { email: email }}).then(res => {
+            this.tData.form = res.data
+            if (this.tData.form.avatar) {
+            this.tData.form.avatar = BASE_URL + this.tData.form.avatar
+            console.log(BASE_URL)
+            }
+            this.loading = false
+        }).catch(err => {
+            console.log(err)
+            this.loading = false
+        })
+    },
+beforeUpload (file){
+  // 改文件名
+  const fileName = new Date().getTime().toString() + '.' + file.type.substring(6)
+  const copyFile = new File([file], fileName)
+  console.log(copyFile)
+  this.tData.form.avatarFile = copyFile
+  return false
+},
+
+   handleEdit() {
+    const that = this
+    authorization().then((response) => {
+      if (response[0]) {
+        let formData = new FormData()
+        if (that.tData.form.avatarFile) {
+        formData.append('avatar', that.tData.form.avatarFile)
+      }
+      if (that.tData.form.nickname) {
+        formData.append('nickname', that.tData.form.nickname)
+      }
+      if (that.tData.form.email) {
+        formData.append('email', that.tData.form.email)
+      }
+      if (that.tData.form.mobile) {
+        formData.append('mobile', that.tData.form.mobile)
+      }
+      if (that.tData.form.description) {
+        formData.append('description', that.tData.form.description)
+      }
+      const token = localStorage.getItem('access')
+      let Data = formData
+
+     axios.post('/api/edit_user/',Data, {
+      headers:{Authorization: 'Bearer ' + token}
+     }).then(function (response) {
+      console.log(response)
+       
+      location.reload()
+     }).catch((error) => {
+      console.log(error)
+      alert("Failed");
+     }) 
+      }else {
+        alert('Auth information out of date,login again')
+      }
+    }
+
+    )
+
+   },
+   handleChangepassword() {
+     this.$router.push({name: 'password'})
+   }
+ },
+ mounted() {
+    this.getUserInfo()
+ },
+};
+</script>
+ <style scoped>
+  input,
+  textarea {
+    border-style: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .flex-view {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  
+  .content-list {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-left: 5vw;
+    margin-top: 10vw;
+    margin-right: 5vw;
+
+
+    height: 100vh;
+    .list-title {
+      color: black;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 48px;
+      height: 48px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #cedce4;
+    }
+  
+    .edit-view {
+      .item {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: 24px 0;
+  
+        .label {
+          width: 100px;
+          color: black;
+          font-weight: 600;
+          font-size: 14px;
+        }
+  
+        .right-box {
+          -webkit-box-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
+        }
+  
+        .avatar {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          margin-right: 16px;
+        }
+  
+        .change-tips {
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+        }
+  
+        label {
+          color: #4684e2;
+          font-size: 14px;
+          line-height: 22px;
+          height: 22px;
+          cursor: pointer;
+          width: 100px;
+          display: block;
+        }
+  
+        .tip {
+          color: #6f6f6f;
+          font-size: 14px;
+          height: 22px;
+          line-height: 22px;
+          margin: 0;
+          width: 100%;
+        }
+  
+        .right-box {
+          -webkit-box-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
+        }
+  
+        .input-dom {
+          width: 400px;
+        }
+  
+        .input-dom {
+          background: #f8fafb;
+          border-radius: 4px;
+          height: 40px;
+          line-height: 40px;
+          font-size: 14px;
+          color: #152844;
+          padding: 0 12px;
+        }
+  
+        .tip {
+          font-size: 12px;
+          line-height: 16px;
+          color: #6f6f6f;
+          height: 16px;
+          margin-top: 4px;
+        }
+  
+        .intro {
+          resize: none;
+          background: #f8fafb;
+          width: 100%;
+          padding: 8px 12px;
+          height: 82px;
+          line-height: 22px;
+          font-size: 14px;
+          color: #152844;
+        }
+      }
+  
+      .save {
+        background: #4684e2;
+        border-radius: 32px;
+        width: 96px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
+        color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+  
+      .mg {
+        margin-left: 100px;
+      }
+    }
+  }
+  .operation {
+  display: flex;
+  flex-direction: row;
+  margin: 0 24px;
+  margin-top: 1vw;
+}
+
+  </style>

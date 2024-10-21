@@ -29,6 +29,11 @@ BASE_URL = 'http://127.0.0.1:8000'
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = "users.User"
 
+# 上传文件路径
+# 并在urls.py配置+static
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload/')
+MEDIA_URL = '/upload/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -36,7 +41,7 @@ AUTH_USER_MODEL = "users.User"
 SECRET_KEY = 'django-insecure-rer*-!!f6d8l$$d)^0m5t2!h*erh0k^_1)nkx(p6fkdlv+9of%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <HeaderTemplates />
+    <HeaderMultiPageRoute>
+
+    </HeaderMultiPageRoute>
     <!-- End Header -->
 
     <hooper :settings="settings" class="multiscroll-slider-wrapper">
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-  import HeaderTemplates from "../../components/header/HeaderTemplates";
+  import HeaderMultiPageRoute from "../../components/header/HeaderMultiPageRoute";
   import Banner from "../../components/multiscroll/Banner";
   import Story from "../../components/multiscroll/Story";
   import Awards from "../../components/multiscroll/Awards";
@@ -40,7 +42,7 @@
 
   export default {
     components: {
-      HeaderTemplates,
+      HeaderMultiPageRoute,
       Hooper,
       Slide,
       HooperPagination,

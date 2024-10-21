@@ -12,14 +12,14 @@ const routes = [{
         name: 'home',
         component: Demo,
         meta: {
-            title: 'Rainfo || Creative Minimal Portfolio'
+            title: 'PBuilder || Creative Minimal Portfolio'
         }
     },
     {
         path: '/login',
         name: 'login',
         meta: {
-            title: 'Rainfo || Login'
+            title: 'PBuilder || Login'
         },
         component: () =>
             import('../views/login.vue')
@@ -28,25 +28,108 @@ const routes = [{
         path: '/register',
         name: 'register',
         meta: {
-            title: 'Rainfo || Register'
+            title: 'PBuilder || Register'
         },
         component: () =>
             import('../views/register.vue')
     },
-    
+    {
+        path: '/password',
+        name: 'password',
+        meta: {
+            title: 'PBuilder || Password Change'
+        },
+        component: () =>
+            import('../views/password.vue')
+    },
 
+    {
+        path: '/main-demo',
+        name: 'MainDemo',
+        meta: {
+            title: 'PBuilder || Main Demo Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/MainDemo.vue')
+    },
+    {
+        path: '/freelancer',
+        name: 'Freelancer',
+        meta: {
+            title: 'PBuilder || Freelancer Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/Freelancer.vue')
+    },
+    {
+        path: '/agency',
+        name: 'Agency',
+        meta: {
+            title: 'PBuilder || Agency Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/Agency.vue')
+    },
+    {
+        path: '/minimal-agency',
+        name: 'MinimalAgency',
+        meta: {
+            title: 'PBuilder || Minimal Agency Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/MinimalAgency.vue')
+    },
+    {
+        path: '/creative-portfolio',
+        name: 'CreativePortfolio',
+        meta: {
+            title: 'PBuilder || Creative Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/CreativePortfolio.vue')
+    },
+    {
+        path: '/designer-portfolio',
+        name: 'DesignerPortfolio',
+        meta: {
+            title: 'PBuilder || Designer Portfolio'
+        },
+
+        component: () =>
+            import ('../views/all-home-version/DesignerPortfolio.vue')
+    },
+    {
+        path: '/vertical-portfolio',
+        name: 'VerticalPortfolio',
+        meta: {
+            title: 'PBuilder || Vertical Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/VerticalPortfolio.vue')
+    },
     {
         path: '/multiscroll-portfolio',
         name: 'MultiScrollPortfolio',
         meta: {
-            title: 'Rainfo || Multiscroll Portfolio'
+            title: 'PBuilder || Multiscroll Portfolio'
         },
         component: () =>
             import ('../views/all-home-version/MultiScrollPortfolio.vue')
     },
+    {
+        path: '/parallax-home',
+        name: 'ParallaxHome',
+        meta: {
+            title: 'PBuilder || Parallax Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/ParallaxHome.vue')
+    },
+
    
 
-    
+
+
     
 ]
 

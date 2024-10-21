@@ -1,20 +1,22 @@
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import redirect, render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from users.auth import TokenAuthtication
 from users.models import User, email_reset
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 
-from users.serializers import UserRegisterSerializer, CustomTokenObtainPairSerializer
+from users.serializers import UserRegisterSerializer, CustomTokenObtainPairSerializer, UserSerializer
 from users.permissions import IsSelfOrReadOnly
-
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.hashers import make_password
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserRegisterSerializer
@@ -78,5 +80,29 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         response_data = {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
+            'username': str(user.username)
         }
         return Response(response_data)
+
+
+# 用户信息
+@api_view(['GET'])  # 只接受get请求
+def info(request):
+    if request.method == 'GET':
+        email = request.GET.get('email')
+        user = User.objects.get(email=email)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+def edit_user(request):
+
+    print(request.data)
+    user = request.user
+    serializer = UserSerializer(user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        print(serializer.data)
+        return Response(serializer.data)
+    else:
+        return Response('Failed')

@@ -92,7 +92,8 @@ export default {
         alert('Verify E-mail has been sent！Please login after verify');
         that.$router.push({name: 'login'})
       }).catch((error) => {
-        alert(error)
+        alert("Check your email address or change the username")
+        console.log(error)
       }) 
     },
     handleLogin() {
