@@ -28,25 +28,13 @@
 
 
   export default {
-    data: () => ({
-      drawer: false,
-      items: [
-        { title: "home", to: "/" },
-        { title: "about us", to: "/about-us" },
-        { title: "best services", to: "/service" },
-        { title: "awesome works", to: "/portfolio" },
-        { title: "our awards", to: "/awards" },
-        { title: "latest post", to: "/blog" },
-        { title: "contact us", to: "/contact" },
-      ],
-      active: false,
-    }),
+
     methods: {
       handleBack() {
         this.$router.push({name: 'home'})
       },
       goNext() {
-        alert(111)
+        this.$router.push({path: `${this.$route.path}Edit`})
       }
     },
   };

@@ -42,6 +42,15 @@ const routes = [{
         component: () =>
             import('../views/password.vue')
     },
+    {
+        path: '/profile',
+        name: 'profile',
+        meta: {
+            title: 'PBuilder || Profile'
+        },
+        component: () =>
+            import('../views/profile.vue')
+    },
 
     {
         path: '/main-demo',
@@ -114,7 +123,16 @@ const routes = [{
             title: 'PBuilder || Multiscroll Portfolio'
         },
         component: () =>
-            import ('../views/all-home-version/MultiScrollPortfolio.vue')
+            import ('../views/all-home-version/MultiScrollPortfolio.vue'),
+    },
+    {
+        path: '/multiscroll-portfolioEdit',
+        name: 'MultiScrollPortfolioEdit',
+        meta: {
+            title: 'PBuilder || Edit'
+        },
+        component: () =>
+            import ('../views/all-home-version/MultEdit.vue'),
     },
     {
         path: '/parallax-home',

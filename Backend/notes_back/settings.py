@@ -13,17 +13,14 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'Trans_Email_Sender@163.com' # 帐号
-EMAIL_HOST_PASSWORD = 'NYVKAUUMYTZJRCRY'  # 密码
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER #默认发送名
-EMAIL_USE_SSL = True # 开启ssl加密协议, 465端口基于此
+EMAIL_HOST_USER = 'xiangnan2004@gmail.com'  # 帐号
+EMAIL_HOST_PASSWORD = 'rgbjyhofgeuqtrmm'  # 密码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 默认发送名
+EMAIL_USE_SSL = True  # 开启ssl加密协议, 465端口基于此
 BASE_URL = 'http://127.0.0.1:8000'
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +41,6 @@ SECRET_KEY = 'django-insecure-rer*-!!f6d8l$$d)^0m5t2!h*erh0k^_1)nkx(p6fkdlv+9of%
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -90,7 +86,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'notes_back.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -119,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -146,8 +140,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
 }
-
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
