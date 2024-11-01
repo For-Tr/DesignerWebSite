@@ -167,43 +167,7 @@
       </div>
     </div>
         </slide>
-        <slide>
-            <div class="ms-container-wrapper">
-    <div class="ms-left">
-      <div
-        class="ms-section bg_image "
-        :style="{ backgroundImage: 'url(' + src + ')' }"
-      >
-      <v-file-input style="padding-top: 30vw;"
-                    accept="image/png, image/jpeg, image/bmp"
-                    label="UPLOAD HERE"
-                    placeholder="Pick a picture of your works"
-                     @change="(file) => {beforeUpload(file, 'pic6')}"
-                ></v-file-input>
-    </div>
-    </div>
 
-    <div class="ms-right">
-      <div class="ms-section ms-table">
-        <div
-          class="slipt-content-inner ms-tableCell story-content footer-widget rn-plr rn-ptb-100"
-        >
-          <div class="content">
-            <h2 class="section-title">Contact </h2>
-            <div class="service-wrapper address">
-              <!-- Start Single Service -->
-              <div class="service" v-for="(contact, i) in contactInfo" :key="i">
-                <h4>{{ contact.name }}</h4>
-                <input type="text" placeholder="Enter" maxlength="20" class="input-dom">
-              </div>
-              <!-- End Single Service -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-        </slide>
         <hooper-pagination slot="hooper-addons"></hooper-pagination>
       </hooper>
       <!-- End hooper slider content -->
@@ -235,12 +199,11 @@ export default {
       },
       src: require("../../assets/img/slider/slider-6.jpg"),
 
-      contactInfo: [
-        { name: "Address" },
-        { name: "Email Address" },
-        { name: "Hot Line" },
-      ],
+
     };
+  },
+  mounted() {
+    this.form.temp = 'Mult'
   },
   methods: {
     beforeUpload(file, picname) {

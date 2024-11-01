@@ -135,6 +135,15 @@ const routes = [{
             import ('../views/all-home-version/MultEdit.vue'),
     },
     {
+        path: '/multiscroll-portfolioShow',
+        name: 'MultiScrollPortfolioShow',
+        meta: {
+            title: 'PBuilder || Show'
+        },
+        component: () =>
+            import ('../views/all-home-version/MultShow.vue'),
+    },
+    {
         path: '/parallax-home',
         name: 'ParallaxHome',
         meta: {

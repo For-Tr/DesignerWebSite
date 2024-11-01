@@ -5,7 +5,7 @@ app_name = 'notes'
 
 urlpatterns = [
     path('', views.list_api),
-    path('detail', views.detail),
+    path('<int:pk>/', views.detail),
     path('create', views.create),
     path('delete', views.delete),
     path('update', views.update)

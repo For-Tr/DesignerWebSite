@@ -1,7 +1,9 @@
+import re
+
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 
-from notes.models import Note
+from notes.models import Note, Text, Pic
 from notes.serializers import ThingSerializer, UpdateThingSerializer
 
 
@@ -14,9 +16,8 @@ def list_api(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def detail(request):
+def detail(request, pk):
     try:
-        pk = request.GET.get('id', -1)
         thing = Note.objects.get(pk=pk)
     except Note.DoesNotExist:
         return Response({'status': 500})
@@ -28,14 +29,35 @@ def detail(request):
 
 @api_view(['POST'])
 def create(request):
-    print(request.data)
-    serializer = ThingSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    else:
-        print(serializer.errors)
-    return Response({'status': 500})
+    data = request.data
+    note = Note()
+    note.user = request.user
+    note.save()
+    for field_name, value in data.items():
+        if field_name.startswith('text') and value:
+            field_value = value
+            text = Text()
+            text.text = field_value
+            text.order_num = re.search(r'\d+', field_name).group()
+            text.save()
+            note.text.add(text)
+
+        elif field_name.startswith('pic'):
+            # 处理图片数据
+            file = value if value else None
+            if file:
+                pic = Pic()
+                pic.pic = file
+                pic.order_num = re.search(r'\d+', field_name).group()
+                pic.save()
+                note.pic.add(pic)
+        else:
+            note.temp = value if value else None
+            note.save()
+            print(note.temp)
+    serializer = ThingSerializer(note)
+    return Response(serializer.data)
+
 
 
 @api_view(['POST'])

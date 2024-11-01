@@ -43,8 +43,7 @@ class UserDescSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'username',
-            'last_login',
-            'date_joined'
+            'avatar'
         ]
 
 

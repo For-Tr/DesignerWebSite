@@ -20,6 +20,8 @@ class Pic(models.Model):
 class Note(models.Model):
     user = models.ForeignKey(to=User, related_name='note', on_delete=models.SET,
                              blank=True, null=True)
+
+    temp = models.CharField(max_length=10, default="Mult")
     # 创建时间
     created = models.DateTimeField(default=timezone.now)
     text = models.ManyToManyField(Text, blank=True, related_name="text_note")
