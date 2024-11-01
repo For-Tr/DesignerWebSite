@@ -74,7 +74,7 @@ export default {
         storage.setItem('expiredTime', expiredTime);
         storage.setItem('email', that.pageData.loginForm.email);
         storage.setItem('username', response.data.username)
-        alert('登录成功！');
+        alert('Login Scuess！');
         that.$router.push({name: 'home'})
       }).catch((error) => {
         alert("Login Failed, check your account or paaword")

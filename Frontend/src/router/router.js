@@ -168,11 +168,15 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title
-  
-    next()
+    const isLoggedIn = localStorage.getItem('access');
 
-})
-
+    if (!isLoggedIn && to.path !== '/' && to.path !== '/login' && to.path !== '/register') {
+        alert('Login First!')
+        window.close()
+    } else {
+        document.title = to.meta.title;
+        next();
+    }
+});
 
 export default router

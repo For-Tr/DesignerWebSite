@@ -27,11 +27,11 @@
           <div class="slipt-content-inner ms-tableCell slider rn-plr rn-ptb-100">
             <div class="content">
                 <span>Text 1</span>
-              <input type="text" v-model="tData.form.text1" placeholder="Enter words like text1" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text1" placeholder="Enter words like text1" maxlength="20" class="input-dom">
               <h2>Text 2</h2>
-              <input type="text" v-model="tData.form.text2" placeholder="Enter words like text2" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text2" placeholder="Enter words like text2" maxlength="20" class="input-dom">
               <p>Text 3</p>
-              <input type="text" v-model="tData.form.text3" placeholder="Enter words like text3" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text3" placeholder="Enter words like text3" maxlength="20" class="input-dom">
             </div>
           </div>
         </div>
@@ -60,9 +60,9 @@
           <div class="story-content">
             <div class="text-left content">
                 <h2>Text 4</h2>
-              <input type="text" v-model="tData.form.text4" placeholder="Enter words like text2" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text4" placeholder="Enter words like text2" maxlength="20" class="input-dom">
               <p>Text 5</p>
-              <input type="text" v-model="tData.form.text5" placeholder="Enter words like text3" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text5" placeholder="Enter words like text3" maxlength="20" class="input-dom">
    
             </div>
           </div>
@@ -92,11 +92,11 @@
           <div class="slipt-content-inner ms-tableCell slider rn-plr rn-ptb-100">
             <div class="content">
                 <span>Text 6</span>
-              <input type="text" v-model="tData.form.text6" placeholder="Enter words like text6" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text6" placeholder="Enter words like text6" maxlength="20" class="input-dom">
               <h2>Text 7</h2>
-              <input type="text" v-model="tData.form.text7" placeholder="Enter words like text7" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text7" placeholder="Enter words like text7" maxlength="20" class="input-dom">
               <p>Text 8</p>
-              <input type="text" v-model="tData.form.text8" placeholder="Enter words like text8" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text8" placeholder="Enter words like text8" maxlength="20" class="input-dom">
             </div>
           </div>
         </div>
@@ -124,11 +124,11 @@
           <div class="slipt-content-inner ms-tableCell slider rn-plr rn-ptb-100">
             <div class="content">
                 <span>Text 9</span>
-              <input type="text" v-model="tData.form.text9" placeholder="Enter words like text9" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text9" placeholder="Enter words like text9" maxlength="20" class="input-dom">
               <h2>Text 10</h2>
-              <input type="text" v-model="tData.form.text10" placeholder="Enter words like text10" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text10" placeholder="Enter words like text10" maxlength="20" class="input-dom">
               <p>Text 11</p>
-              <input type="text" v-model="tData.form.text11" placeholder="Enter words like text11" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text11" placeholder="Enter words like text11" maxlength="20" class="input-dom">
             </div>
           </div>
         </div>
@@ -156,11 +156,11 @@
           <div class="slipt-content-inner ms-tableCell slider rn-plr rn-ptb-100">
             <div class="content">
                 <span>Text 12</span>
-              <input type="text" v-model="tData.form.text12" placeholder="Enter words like text12" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text12" placeholder="Enter words like text12" maxlength="20" class="input-dom">
               <h2>Text 13</h2>
-              <input type="text" v-model="tData.form.text13" placeholder="Enter words like text13" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text13" placeholder="Enter words like text13" maxlength="20" class="input-dom">
               <p>Text 14</p>
-              <input type="text" v-model="tData.form.text14" placeholder="Enter words like text14" maxlength="20" class="input-dom">
+              <input type="text" v-model="form.text14" placeholder="Enter words like text14" maxlength="20" class="input-dom">
             </div>
           </div>
         </div>
@@ -211,96 +211,49 @@
   </template>
   
   <script>
-    import HeaderEdit from "../../components/header/HeaderEdit";
+import HeaderEdit from "../../components/header/HeaderEdit";
+import { Hooper, Slide, Pagination as HooperPagination } from "hooper";
+import { useFormStore } from '../../stores/formStore.js';
 
-
-
-
-    import { Hooper, Slide, Pagination as HooperPagination } from "hooper";
-  
-    export default {
-      components: {
-        HeaderEdit,
-        Hooper,
-        Slide,
-        HooperPagination,
-
-
-
-
+export default {
+  components: {
+    HeaderEdit,
+    Hooper,
+    Slide,
+    HooperPagination,
+  },
+  data() {
+    const formStore = useFormStore();
+    return {
+      formStore,
+      form: formStore.form,
+      settings: {
+        vertical: true,
+        mouseDrag: false,
+        infiniteScroll: true,
+        transition: 800,
       },
-      data() {
-        return {
-          settings: {
-            vertical: true,
-            mouseDrag: false,
-            infiniteScroll: true,
-            transition: 800,
-          },
-          src: require("../../assets/img/slider/slider-6.jpg"),
-        heroContent: {
-          name: "Hello",
-          title: "I’m PBuilder",
-          desc: `There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form.`,
-        },
-        contactInfo: [
-          {
-            name: "Address",
-           
-          },
-          {
-            name: "Email Address",
-           
-          },
-          {
-            name: "Hot Line",
+      src: require("../../assets/img/slider/slider-6.jpg"),
 
-          },
-        ],
-        tData: {
-        form: { 
-         text1: undefined,
-         text2: undefined,
-         text3: undefined,
-         text4: undefined,
-         text5: undefined,
-         text6: undefined,
-         text7: undefined,
-         text8: undefined,
-         text9: undefined,
-         text10: undefined,
-         text11: undefined,
-         text12: undefined,
-         text13: undefined,
-         text14: undefined,
-         pic1: undefined,
-         pic2: undefined,
-         pic3: undefined,
-         pic4: undefined,
-         pic5: undefined,
-         pic6: undefined,
-
-        }
-      },
-
-        };
-      },
-      methods: {
-        beforeUpload (file, picname){
-        // 改文件名
-        const fileName = new Date().getTime().toString() + '.' + file.type.substring(6)
-        const copyFile = new File([file], fileName)
-        console.log(copyFile)
-        console.log(picname)
-        this.tData.form[picname] = copyFile
-        console.log(this.tData.form)
-        return false
-        },
-
-        }
+      contactInfo: [
+        { name: "Address" },
+        { name: "Email Address" },
+        { name: "Hot Line" },
+      ],
     };
-  </script>
+  },
+  methods: {
+    beforeUpload(file, picname) {
+      const fileName = new Date().getTime().toString() + '.' + file.type.substring(6);
+      const copyFile = new File([file], fileName);
+      this.$pinia.use(() => ({
+        formStore: useFormStore(),
+      }));
+      this.formStore.updatePicField(picname, copyFile);
+    },
+  },
+};
+</script>
   
   <style lang="scss">
     .ms-right,

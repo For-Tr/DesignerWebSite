@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="next-btn-view">
-          <button class="next-btn btn-active" style="margin: 16px 0px;" @click="handleRegister">Register</button>
+          <button class="next-btn btn-active" style="margin: 16px 0px;" @click="handleRegister" :disabled="registing">Register</button>
         </div>
       </div>
       <div class="operation">
@@ -69,6 +69,7 @@ export default {
     },
   data() {
     return {
+      registing: false,
       pageData: {
         loginForm: {
             username: '',
@@ -81,6 +82,11 @@ export default {
   },
   methods: {
     handleRegister() {
+      if(this.registing) {
+        alert(1)
+        return;
+      }
+      this.registing = true
     const that = this;
       axios.post('/api/user/',{
         username:this.pageData.loginForm.username,
@@ -90,10 +96,12 @@ export default {
       }).then(function (response) {
         console.log(response)
         alert('Verify E-mail has been sent！Please login after verify');
+        that.registing = false
         that.$router.push({name: 'login'})
       }).catch((error) => {
         alert("Check your email address or change the username")
         console.log(error)
+        that.registing = false
       }) 
     },
     handleLogin() {
