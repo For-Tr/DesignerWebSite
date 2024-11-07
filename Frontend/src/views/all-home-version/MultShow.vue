@@ -1,5 +1,6 @@
 <template>
     <div>
+      <HeaderShow :email="Email"></HeaderShow>
 
   
       <hooper :settings="settings" class="multiscroll-slider-wrapper">
@@ -136,11 +137,13 @@
 import { Hooper, Slide, Pagination as HooperPagination } from "hooper";
 import axios from 'axios';
 import {BASE_URL} from "../../utils/BASE"
+import HeaderShow from "../../components/header/HeaderShow.vue";
 export default {
   components: {
     Hooper,
     Slide,
     HooperPagination,
+    HeaderShow
   },
   data() {
 
@@ -173,7 +176,7 @@ export default {
         infiniteScroll: true,
         transition: 800,
       },
-
+      Email: null,
       loading: false,
       id: null,
       error: null
@@ -204,7 +207,8 @@ export default {
             this.newForm[key] = BASE_URL + item.pic; 
         });
 
-
+        this.Email = response.data.user.email
+        console.log('111' + this.Email)
         response.data.text.forEach(item => {
             const key = `text${item.order_num}`;
             this.newForm[key] = item.text; 

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import goTo from 'vuetify/es5/services/goto'
 
 import Demo from '../views/Demo.vue'
-
+import Portifolio from '../views/Portfolio.vue'
 
 Vue.use(VueRouter)
 
@@ -14,6 +14,32 @@ const routes = [{
         meta: {
             title: 'PBuilder || Creative Minimal Portfolio'
         }
+    },
+    {
+        path: '/portfolio',
+        name: 'portfolio',
+        component: Portifolio,
+        meta: {
+            title: 'PBuilder || Creative Minimal Portfolio'
+        }
+    },
+    {
+        path: '/portfolio-details',
+        name: 'PortfolioDetails',
+        meta: {
+            title: 'PBuilder || Portfolio Details'
+        },
+        component: () =>
+            import ('../views/PortfolioDetails.vue')
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        meta: {
+            title: 'Pbuilder || Contact'
+        },
+        component: () =>
+            import ('../views/Contact.vue')
     },
     {
         path: '/login',

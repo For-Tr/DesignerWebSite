@@ -1,5 +1,7 @@
 import re
+import smtplib
 
+from django.core.mail import send_mail
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 
@@ -9,11 +11,11 @@ from notes.serializers import ThingSerializer, UpdateThingSerializer
 
 @api_view(['GET'])
 def list_api(request):
-
     things = Note.objects.all().order_by('-created')
 
     serializer = ThingSerializer(things, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def detail(request, pk):
@@ -59,7 +61,6 @@ def create(request):
     return Response(serializer.data)
 
 
-
 @api_view(['POST'])
 def update(request):
     try:
@@ -84,4 +85,22 @@ def delete(request):
         Note.objects.filter(id__in=ids_arr).delete()
     except Note.DoesNotExist:
         return Response({'status': 500})
+    return Response({'status': 200})
+
+
+@api_view(['POST'])
+def contact(request):
+    print(request.data)
+    name = request.data['name']
+    email = request.data['email']
+    content = request.data['subject'] + '  ' + request.data['message']
+    to_email = request.data['auth_email']
+
+    send_mail(
+            "Message from " + name + " in PBuilder~",
+            content,
+            'xiangnan2004@gmail.com',
+            [to_email],
+            fail_silently=False,
+        )
     return Response({'status': 200})

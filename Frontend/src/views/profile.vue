@@ -67,6 +67,7 @@
             </div>
             
           </div>
+        <div style="height: 300px;" ref="visitChartDiv"></div>
           
         </div>
 
@@ -81,12 +82,14 @@
 import HeaderThree from "../components/header/HeaderThree";
 import {BASE_URL} from "../utils/BASE"
 import authorization from "../utils/authorization"
+import echarts from "echarts"
 export default {
    components: {
        HeaderThree,
    },
  data() {
    return {
+    visitChart: null,
     loading: false,
       tData: {
         form: { 
@@ -170,10 +173,83 @@ beforeUpload (file){
    },
    handleChangepassword() {
      this.$router.push({name: 'password'})
-   }
+   },
+   initCharts() {
+      this.tdata.data.visit_data.forEach((item) => {
+        this.xData.push(item.day);
+        this.uvData.push(item.uv);
+        this.pvData.push(item.pv);
+      });
+
+      this.visitChart = echarts.init(this.$refs.visitChartDiv);
+      let option = {
+        title: {
+          text: ''
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['IP', 'visit'],
+          top: '90%',
+          left: 'center'
+        },
+        grid: {
+          top: '30px',
+          left: '20px',
+          right: '20px',
+          bottom: '40px',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          axisLabel: {
+            textStyle: {
+              color: '#2F4F4F'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#2F4F4F'
+            }
+          },
+          data: this.xData
+        },
+        yAxis: {
+          type: 'value',
+          axisLine: { show: false },
+          axisTick: { show: false },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(10, 10, 10, 0.1)',
+              width: 1,
+              type: 'solid'
+            }
+          }
+        },
+        series: [
+          {
+            name: 'IP',
+            type: 'line',
+            stack: 'Total',
+            data: this.uvData
+          },
+          {
+            name: 'visit',
+            type: 'line',
+            stack: 'Total',
+            data: this.pvData
+          }
+        ]
+      };
+      this.visitChart.setOption(option);
+    }
+  
  },
  mounted() {
     this.getUserInfo()
+    this.initCharts();
  },
 };
 </script>

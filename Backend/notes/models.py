@@ -26,3 +26,4 @@ class Note(models.Model):
     created = models.DateTimeField(default=timezone.now)
     text = models.ManyToManyField(Text, blank=True, related_name="text_note")
     pic = models.ManyToManyField(Pic, blank=True,  related_name="pic_note")
+

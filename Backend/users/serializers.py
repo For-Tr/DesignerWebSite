@@ -36,14 +36,15 @@ class UserSerializers(serializers.ModelSerializer):  # 登录专用返回人员u
 
 
 class UserDescSerializer(serializers.ModelSerializer):
-    """于文章列表中引用的嵌套序列化器"""
 
     class Meta:
         model = User
         fields = [
             'id',
             'username',
-            'avatar'
+            'email',
+            'avatar',
+            'nickname'
         ]
 
 

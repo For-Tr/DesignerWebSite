@@ -19,7 +19,7 @@
           <template v-slot:default="{ item }">
             <div class="portfolio_style--3 Item">
               <div class="thumb">
-                <router-link to="/portfolio-details">
+                <router-link :to="{ name: 'PortfolioDetails', params: { id: item.noteId, type: item.noteType }}">
                   <img :src="item.src" alt="personal portfolio"
                 /></router-link>
                 <div class="port-hover-action">
@@ -41,296 +41,90 @@
 </template>
 
 <script>
-  import VueMasonryWall from "vue-masonry-wall";
-  export default {
-    components: { VueMasonryWall },
-    data() {
-      return {
-        tab: null,
-        index: null,
-        options: {
-          width: 535,
-          padding: {
-            default: 7.5,
-          },
+import VueMasonryWall from "vue-masonry-wall";
+import axios from 'axios';
+import {BASE_URL} from "../../utils/BASE"
+export default {
+  components: { VueMasonryWall },
+  data() {
+    return {
+
+      defaultImage: "../../assets/img/project/port-4/portfolio-5.jpg",
+      tab: null,
+      index: null,
+      options: {
+        width: 535,
+        padding: {
+          default: 7.5,
         },
-        tabItems: [
-          {
-            id: 1,
-            name: "All",
-          },
-          {
-            id: 2,
-            name: "Fashion",
-          },
-          {
-            id: 3,
-            name: "Minimal",
-          },
-          {
-            id: 4,
-            name: "Photography",
-          },
-          {
-            id: 5,
-            name: "Black",
-          },
-          {
-            id: 6,
-            name: "Model",
-          },
-        ],
-        tabContent: [
-          {
-            id: 1,
-            content: [
-              {
-                src: require("../../assets/img/project/port-4/portfolio-1.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-2.jpg"),
-                title: `Creative`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-3.jpg"),
-                title: `Development`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-4.jpg"),
-                title: `Motion Graphy`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-5.jpg"),
-                title: `Minimal`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-6.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-7.jpg"),
-                title: `Motion Graphy`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-8.jpg"),
-                  title: `Development`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-9.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-10.jpg"),
-                title: `Motion Graphy`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-11.jpg"),
-                  title: `Development`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-12.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-13.jpg"),
-                title: `Development`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-14.jpg"),
-                title: `Motion Graphy`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-15.jpg"),
-                title: `Creative`,
-              },
-            ],
-          },
-          {
-            id: 2,
-            content: [
-              {
-                src: require("../../assets/img/project/port-4/portfolio-4.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-5.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-6.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-7.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-8.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-9.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-10.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-11.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-12.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-            ],
-          },
-          {
-            id: 3,
-            content: [
-              {
-                src: require("../../assets/img/project/port-4/portfolio-8.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-9.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-10.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-11.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-12.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-13.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-14.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-15.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-16.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-            ],
-          },
-          {
-            id: 4,
-            content: [
-              {
-                src: require("../../assets/img/project/port-4/portfolio-4.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-5.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-6.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-7.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-8.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-9.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-            ],
-          },
-          {
-            id: 5,
-            content: [
-              {
-                src: require("../../assets/img/project/port-4/portfolio-8.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-9.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-10.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-11.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-12.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-13.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-14.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-15.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-16.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-            ],
-          },
-          {
-            id: 6,
-            content: [
-              {
-                src: require("../../assets/img/project/port-4/portfolio-4.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-5.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-6.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-7.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-8.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-              {
-                src: require("../../assets/img/project/port-4/portfolio-9.jpg"),
-                title: `Mr. Joharuin Joly`,
-              },
-            ],
-          },
-        ],
-      };
-    },
-  };
+      },
+      tabItems: [
+        {
+          id: 1,
+          name: "All",
+        },
+        {
+          id: 2,
+          name: "Freelancer",
+        },
+        {
+          id: 3,
+          name: "Developer",
+        },
+        {
+          id: 4,
+          name: "Photographer",
+        },
+        {
+          id: 5,
+          name: "Designer",
+        },
+        {
+          id: 6,
+          name: "Others",
+        },
+      ],
+      tabContent: []
+    };
+  },
+  created() {
+    this.fetchNotes();
+  },
+  methods: {
+    getImageSrc(note) { 
+      if (note.pic && note.pic.length > 0 && note.pic[0].pic) { 
+        return BASE_URL + note.pic[0].pic; 
+      } 
+      return this.defaultImage; 
+      },
+      getUserName(note) { 
+        if (note && note.user && note.user.nickname) { 
+          return note.user.nickname; 
+        } else if (note && note.user && note.user.username) {
+          return note.user.username; 
+        }
+        return 'Unknown User'; 
+      },
+    async fetchNotes() {
+      try {
+        const response = await axios.get('api/notes');
+        const notes = response.data;
+        this.tabContent = this.tabItems.map(tab => ({
+          id: tab.id,
+          content: notes.map(note => ({
+
+            src: this.getImageSrc(note), 
+            title: this.getUserName(note),
+            noteId: note.id,
+            noteType: note.temp,
+          }))
+        }));
+      } catch (error) {
+        console.error('failed:', error);
+      }
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
