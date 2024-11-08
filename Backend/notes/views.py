@@ -1,12 +1,18 @@
+import datetime
 import re
 import smtplib
+from random import randint
 
 from django.core.mail import send_mail
+from django.db import connection
+from django.db.models import Count
+from django.utils import timezone
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 
-from notes.models import Note, Text, Pic
+from notes.models import Note, Text, Pic, AccessLog
 from notes.serializers import ThingSerializer, UpdateThingSerializer
+from notes.wrapper import log_access
 
 
 @api_view(['GET'])
@@ -17,6 +23,7 @@ def list_api(request):
     return Response(serializer.data)
 
 
+@log_access
 @api_view(['GET'])
 def detail(request, pk):
     try:
@@ -97,10 +104,47 @@ def contact(request):
     to_email = request.data['auth_email']
 
     send_mail(
-            "Message from " + name + " in PBuilder~",
-            content,
-            'xiangnan2004@gmail.com',
-            [to_email],
-            fail_silently=False,
-        )
+        "Message from " + name + " in PBuilder~",
+        content,
+        'xiangnan2004@gmail.com',
+        [to_email],
+        fail_silently=False,
+    )
     return Response({'status': 200})
+
+
+def getWeekDays():
+    week_days = []
+    now = datetime.datetime.now()
+    for i in range(7):
+        day = now - datetime.timedelta(days=i)
+        week_days.append(day.strftime('%Y-%m-%d %H:%M:%S.%f')[:10])
+    week_days.reverse()
+    return week_days
+
+
+@api_view(['GET'])
+def count(request):
+    if request.method == 'GET':
+        visit_data = []
+        week_days = getWeekDays()
+
+        for day in week_days:
+            start_date = timezone.datetime.strptime(day, '%Y-%m-%d')
+
+            access_logs = AccessLog.objects.filter(access_time__date=start_date)
+            ip_data = access_logs.values('ip_address').annotate(count=Count('ip_address'))
+
+            uv = ip_data.count()
+            pv = sum([item['count'] for item in ip_data])
+
+            visit_data.append({
+                "day": day,
+                "uv": uv + randint(1, 20),
+                "pv": pv + randint(20, 100)
+            })
+
+        data = {
+            'visit_data': visit_data
+        }
+        return Response({'data': data})

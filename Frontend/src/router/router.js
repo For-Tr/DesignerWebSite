@@ -42,6 +42,15 @@ const routes = [{
             import ('../views/Contact.vue')
     },
     {
+        path: '/blog',
+        name: 'Blog',
+        meta: {
+            title: 'PBuilder || Blog'
+        },
+        component: () =>
+            import ('../views/Blog.vue')
+    },
+    {
         path: '/login',
         name: 'login',
         meta: {

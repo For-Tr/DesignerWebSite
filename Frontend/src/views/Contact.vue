@@ -197,8 +197,12 @@ import HeaderThree from "../components/header/HeaderThree.vue";
           if (response[0]) {
         try {
       const token = localStorage.getItem('access')
+          if (this.auth_email) {
+            this.formData.auth_email = this.auth_email;
 
-          this.formData.auth_email = this.auth_email;
+          } else {
+          this.formData.auth_email = 'liuyang5407@163.com'
+          }
           console.log(this.formData)
           const response = fetch('/api/notes/contact', {
             method: 'POST',

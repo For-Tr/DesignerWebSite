@@ -14,12 +14,11 @@
               >
              
                 
-                  <span class="date">March 16, 2021</span>
+                  <span class="date">Nov 8, 2024</span>
                 >
               </h2>
               <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in majority some form.
+                November 8 marked a significant milestone in the PBuilder journey - the official launch of the website. With bated breath and a sense of accomplishment, the team unveiled the platform to the world.  
               </p>
             </div>
             <!-- End Single Blog -->
@@ -32,12 +31,11 @@
               >
                 <router-link to="/blog-details"
                   >The Lorem Ipsum generators -
-                  <span class="date">March 16, 2021</span></router-link
+                  <span class="date">Oct 16, 2024</span></router-link
                 >
               </h2>
               <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority.
+                The development phase was a whirlwind of coding marathons, design tweaks, and user experience enhancements. The team poured their creativity and technical expertise into building a platform that seamlessly integrates portfolio creation tools, customizable templates, and responsive design elements.
               </p>
             </div>
             <!-- End Single Blog -->
@@ -50,13 +48,11 @@
               >
                 <router-link to="/blog-details"
                   >The Lorem Ipsum generators -
-                  <span class="date">March 16, 2021</span></router-link
+                  <span class="date">Sept 26, 2024</span></router-link
                 >
               </h2>
               <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some passages of
-                form.
+                The journey with PBuilder began with a spark of inspiration back in September. The idea was to create a platform tailored for freelancers, photographers, developers, and designers to effortlessly craft their portfolios. 
               </p>
             </div>
             <!-- End Single Blog -->

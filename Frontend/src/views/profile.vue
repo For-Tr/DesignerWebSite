@@ -91,6 +91,7 @@ export default {
    return {
     visitChart: null,
     loading: false,
+    visit_data: [],
       tData: {
         form: { 
           avatar: undefined,
@@ -174,11 +175,25 @@ beforeUpload (file){
    handleChangepassword() {
      this.$router.push({name: 'password'})
    },
+
+   list() {
+    axios.get('/api/notes/count').then((response) => {
+      console.log(response)
+    this.visit_data = response.data.data.visit_data
+    console.log(this.visit_data)
+
+    this.initCharts()
+
+    })
+   },
    initCharts() {
-      this.tdata.data.visit_data.forEach((item) => {
-        this.xData.push(item.day);
-        this.uvData.push(item.uv);
-        this.pvData.push(item.pv);
+    let xData = []
+  let uvData = []
+  let pvData = []
+      this.visit_data.forEach((item) => {
+        xData.push(item.day);
+        uvData.push(item.uv);
+        pvData.push(item.pv);
       });
 
       this.visitChart = echarts.init(this.$refs.visitChartDiv);
@@ -213,7 +228,7 @@ beforeUpload (file){
               color: '#2F4F4F'
             }
           },
-          data: this.xData
+          data: xData
         },
         yAxis: {
           type: 'value',
@@ -233,13 +248,13 @@ beforeUpload (file){
             name: 'IP',
             type: 'line',
             stack: 'Total',
-            data: this.uvData
+            data: uvData
           },
           {
             name: 'visit',
             type: 'line',
             stack: 'Total',
-            data: this.pvData
+            data: pvData
           }
         ]
       };
@@ -249,7 +264,7 @@ beforeUpload (file){
  },
  mounted() {
     this.getUserInfo()
-    this.initCharts();
+    this.list();
  },
 };
 </script>

@@ -27,3 +27,12 @@ class Note(models.Model):
     text = models.ManyToManyField(Text, blank=True, related_name="text_note")
     pic = models.ManyToManyField(Pic, blank=True,  related_name="pic_note")
 
+
+class AccessLog(models.Model):
+    ip_address = models.CharField(max_length=50)
+    access_time = models.DateTimeField()
+    author = models.ForeignKey(to=User, related_name='log', on_delete=models.SET,
+                             blank=True, null=True)
+
+    def __str__(self):
+        return f"AccessLog - IP: {self.ip_address}, Time: {self.access_time}, Author: {self.author}"

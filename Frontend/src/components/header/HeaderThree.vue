@@ -122,7 +122,6 @@
       items: [
         { title: "Home", to: "/" },
         { title: "Portfolio", to: "/portfolio" },
-        { title: "Awards", to: "/awards" },
         { title: "Blog", to: "/blog" },
         { title: "Contact", to: "/contact" },
       ],
