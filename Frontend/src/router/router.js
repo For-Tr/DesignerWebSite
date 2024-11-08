@@ -124,6 +124,24 @@ const routes = [{
             import ('../views/all-home-version/MinimalAgency.vue')
     },
     {
+        path: '/minimal-agencyEdit',
+        name: 'MinimalAgencyEdit',
+        meta: {
+            title: 'PBuilder || Edit'
+        },
+        component: () =>
+            import ('../views/all-home-version/MiniEdit.vue')
+    },
+    {
+        path: '/minimal-agencyShow',
+        name: 'MinimalAgencyShow',
+        meta: {
+            title: 'PBuilder || Show'
+        },
+        component: () =>
+            import ('../views/all-home-version/MiniShow.vue')
+    },
+    {
         path: '/creative-portfolio',
         name: 'CreativePortfolio',
         meta: {
@@ -216,7 +234,7 @@ router.beforeEach((to, from, next) => {
 
     if (!isLoggedIn && to.path !== '/' && to.path !== '/login' && to.path !== '/register') {
         alert('Login First!')
-        window.close()
+        next({name: 'login'})
     } else {
         document.title = to.meta.title;
         next();

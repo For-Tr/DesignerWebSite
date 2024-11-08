@@ -13,22 +13,7 @@
     </div>
     <!-- End Story Area -->
 
-    <div
-      class="rn-portfolio-area section-ptb-md rp-product-container5"
-      id="portfolio"
-    >
-      <v-row class="row">
-        <v-col lg="12">
-          <div class="section-title-2 text-center mb--60 mb-sm-30">
-            <h2>New Project</h2>
-            <p>My work will prove my quality</p>
-          </div>
-        </v-col>
-      </v-row>
-      <PortfolioSix />
-    </div>
 
-    <Footer />
   </div>
 </template>
 
@@ -36,15 +21,11 @@
   import HeaderMultiPageRoute from "../../components/header/HeaderMultiPageRoute";
   import SliderFour from "../../components/slider/SliderFour";
   import About from "../../components/about/About";
-  import PortfolioSix from "../../components/portfolio/PortfolioSix";
-  import Footer from "../../components/footer/Footer";
   export default {
     components: {
       HeaderMultiPageRoute,
       SliderFour,
       About,
-      PortfolioSix,
-      Footer,
     },
     data() {
       return {

@@ -66,6 +66,9 @@ import PortfolioFive from "../components/portfolio/PortfolioFive.vue";
           if (this.type == 'Mult') {
               this.newPath = '/multiscroll-portfolioShow'
           }
+          if (this.type == 'Mini') {
+              this.newPath = '/minimal-agencyShow'
+          }
           this.$router.push({path: this.newPath, query: {id: this.id}}); 
     }
   };

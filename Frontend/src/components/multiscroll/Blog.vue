@@ -38,7 +38,7 @@
   export default {
     data() {
       return {
-        src: require("../../assets/img/news/news-1.jpg"),
+        src: require("../../assets/img/news/news-4.jpg"),
         blogContent: [
           {
             blogTitle: "The Lorem Ipsum generators",

@@ -32,7 +32,7 @@
         sliderContent: [
           {
             imgClass: "bg_image--8",
-            title: "Rainfo Creative Agency",
+            title: "PBuilder Creative Agency",
             subTitle: "Welcome",
             desc: `There are many variations of passages of Lorem Ipsum available 
                   but the majority have suffered alteration.`,
