@@ -100,17 +100,14 @@
     </div>
     <!-- End Hero Area -->
 
-    <Footer />
   </div>
 </template>
 
 <script>
   import HeaderMultiPageRoute from "../../components/header/HeaderMultiPageRoute";
-  import Footer from "../../components/footer/Footer";
   export default {
     components: {
       HeaderMultiPageRoute,
-      Footer,
     },
     data() {
       return {

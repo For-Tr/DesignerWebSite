@@ -2,11 +2,9 @@
     <div>
       <v-app-bar class="header header-flat" height="90" flat>
         <div class="header-buttons">
+
           <div class="purchase-button">
-            <a target="_blank" @click="handleBack">BACK</a >
-          </div>
-          <div class="purchase-button">
-            <a target="_blank" @click="goNext">Contact</a >
+            <a target="_blank" @click="goNext">Contact Author</a >
           </div>
         </div>
       </v-app-bar>

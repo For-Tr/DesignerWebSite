@@ -18,9 +18,7 @@
     </div>
     <!-- End Portfolio Area -->
 
-    <Awards />
-    <News />
-    <Footer />
+
   </div>
 </template>
 
@@ -28,18 +26,12 @@
 
   import SliderOne from "../../components/slider/SliderOne";
   import Portfolio from "../../components/portfolio/Portfolio";
-  import Awards from "../../components/awards/Awards";
-  import News from "../../components/news/News";
-  import Footer from "../../components/footer/Footer";
 import HeaderMultiPageRoute from "../../components/header/HeaderMultiPageRoute.vue";
   export default {
     components: {
       HeaderMultiPageRoute,
       SliderOne,
       Portfolio,
-      Awards,
-      News,
-      Footer,
     },
     data() {
       return {};

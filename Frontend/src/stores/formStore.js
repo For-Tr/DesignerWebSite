@@ -24,6 +24,9 @@ export const useFormStore = defineStore('form', {
       pic4: undefined,
       pic5: undefined,
       pic6: undefined,
+      pic7: undefined,
+      pic8: undefined,
+      pic9: undefined,
       temp: undefined,
     }
   }),

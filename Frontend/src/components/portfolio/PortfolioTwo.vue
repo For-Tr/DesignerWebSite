@@ -45,21 +45,7 @@
             title: "Art Deco",
             desc: "Fashion",
           },
-          {
-            imgClass: "project-bg--4",
-            title: "Modern Mid-Century",
-            desc: "Photography",
-          },
-          {
-            imgClass: "project-bg--5",
-            title: "The continuing",
-            desc: "Photography",
-          },
-          {
-            imgClass: "project-bg--6",
-            title: "palettes for photos",
-            desc: "Photography",
-          },
+         
         ],
       };
     },

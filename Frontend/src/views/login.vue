@@ -44,12 +44,13 @@
  
 </template>
 <script>
-  import axios from "axios";
+import axios from "axios";
 import HeaderThree from "../components/header/HeaderThree";
+
 export default {
-    components: {
-        HeaderThree,
-    },
+  components: {
+    HeaderThree,
+  },
   data() {
     return {
       pageData: {
@@ -62,10 +63,23 @@ export default {
   },
   methods: {
     handleLogin() {
+      // Validate form fields
+      if (!this.pageData.loginForm.email || !this.pageData.loginForm.password) {
+        alert('Please enter both email and password');
+        return;
+      }
+
+      // Email format validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.pageData.loginForm.email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
       const that = this;
-      axios.post('/api/token/',{
-        email:this.pageData.loginForm.email,
-        password:this.pageData.loginForm.password,
+      axios.post('/api/token/', {
+        email: this.pageData.loginForm.email,
+        password: this.pageData.loginForm.password,
       }).then(function (response) {
         const storage = localStorage;
         const expiredTime = Date.parse(response.headers.date) + 60000;
@@ -74,12 +88,39 @@ export default {
         storage.setItem('expiredTime', expiredTime);
         storage.setItem('email', that.pageData.loginForm.email);
         storage.setItem('username', response.data.username)
-        alert('Login Scuess！');
+        alert('Login successful! Welcome back.');
         that.$router.push({name: 'home'})
       }).catch((error) => {
-        alert("Login Failed, check your account or paaword")
-        console.log(error)
-      }) 
+        if (error.response) {
+          // Server responded with error
+          switch (error.response.status) {
+            case 400:
+              alert('Invalid credentials. Please check your email and password.');
+              break;
+            case 401:
+              alert('Unauthorized access. Please check your credentials.');
+              break;
+            case 404:
+              alert('Account not found. Please check your email or register.');
+              break;
+            case 429:
+              alert('Too many login attempts. Please try again later.');
+              break;
+            case 500:
+              alert('Server error. Please try again later.');
+              break;
+            default:
+              alert('Login failed. Please try again.');
+          }
+        } else if (error.request) {
+          // Request made but no response
+          alert('Network error. Please check your internet connection.');
+        } else {
+          // Error in request configuration
+          alert('An error occurred. Please try again.');
+        }
+        console.log(error);
+      });
     },
     handleCreateUser() {
       this.$router.push({name: 'register'})

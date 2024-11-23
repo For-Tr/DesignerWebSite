@@ -106,6 +106,33 @@ const routes = [{
             import ('../views/all-home-version/Freelancer.vue')
     },
     {
+        path: '/freelancerEdit',
+        name: 'FreelancerEdit',
+        meta: {
+            title: 'PBuilder || Edit'
+        },
+        component: () =>
+            import ('../views/all-home-version/FreeEdit.vue')
+    },
+    {
+        path: '/freelancerPre',
+        name: 'FreelancerPre',
+        meta: {
+            title: 'PBuilder || Pre'
+        },
+        component: () =>
+            import ('../views/all-home-version/FreePre.vue')
+    },
+    {
+        path: '/freelancerShow',
+        name: 'FreelancerShow',
+        meta: {
+            title: 'PBuilder || Show'
+        },
+        component: () =>
+            import ('../views/all-home-version/FreeShow.vue')
+    },
+    {
         path: '/agency',
         name: 'Agency',
         meta: {
@@ -113,6 +140,33 @@ const routes = [{
         },
         component: () =>
             import ('../views/all-home-version/Agency.vue')
+    },
+    {
+        path: '/agencyEdit',
+        name: 'AgencyEdit',
+        meta: {
+            title: 'PBuilder || Edit'
+        },
+        component: () =>
+            import ('../views/all-home-version/AgencyEdit.vue')
+    },
+    {
+        path: '/agencyShow',
+        name: 'AgencyShow',
+        meta: {
+            title: 'PBuilder || Show'
+        },
+        component: () =>
+            import ('../views/all-home-version/AgencyShow.vue')
+    },
+    {
+        path: '/agencyPre',
+        name: 'AgencyPre',
+        meta: {
+            title: 'PBuilder || Agency Portfolio'
+        },
+        component: () =>
+            import ('../views/all-home-version/AgencyPre.vue')
     },
     {
         path: '/minimal-agency',
@@ -131,6 +185,15 @@ const routes = [{
         },
         component: () =>
             import ('../views/all-home-version/MiniEdit.vue')
+    },
+    {
+        path: '/minimal-agencyPre',
+        name: 'MinimalAgencyPre',
+        meta: {
+            title: 'PBuilder || Pre'
+        },
+        component: () =>
+            import ('../views/all-home-version/MiniPre.vue')
     },
     {
         path: '/minimal-agencyShow',
@@ -186,6 +249,24 @@ const routes = [{
         },
         component: () =>
             import ('../views/all-home-version/MultEdit.vue'),
+    },
+    {
+        path: '/multiscroll-portfolioFrame',
+        name: 'MultiScrollPortfolioFrame',
+        meta: {
+            title: 'PBuilder || Frame'
+        },
+        component: () =>
+            import ('../views/all-home-version/MultFrame.vue'),
+    },
+    {
+        path: '/multiscroll-portfolioPre',
+        name: 'MultiScrollPortfolioPre',
+        meta: {
+            title: 'PBuilder || Pre'
+        },
+        component: () =>
+            import ('../views/all-home-version/MultPre.vue'),
     },
     {
         path: '/multiscroll-portfolioShow',

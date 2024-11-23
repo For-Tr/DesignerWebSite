@@ -10,7 +10,7 @@
       v-for="(content, i) in portfolioContent"
       :key="i"
     >
-      <router-link to="/portfolio-details" class="portfolio-wrap">
+      <router-link to="" class="portfolio-wrap">
         <div class="item-shadow">
           <img :src="content.src" />
         </div>

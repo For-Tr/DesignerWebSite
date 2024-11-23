@@ -29,7 +29,6 @@
               data-wow-duration="1s"
               data-wow-delay="1000ms"
             >
-              <router-link to="/contact">Get Connected</router-link>
             </div>
           </div>
         </div>

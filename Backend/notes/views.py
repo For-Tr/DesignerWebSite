@@ -17,7 +17,7 @@ from notes.wrapper import log_access
 
 @api_view(['GET'])
 def list_api(request):
-    things = Note.objects.all().order_by('-created')
+    things = Note.objects.filter(user=request.user).order_by('-created')
 
     serializer = ThingSerializer(things, many=True)
     return Response(serializer.data)

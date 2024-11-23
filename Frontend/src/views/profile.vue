@@ -9,7 +9,10 @@
                 your details with creative control. 
             </h1>
              <div class="content-list">
-      <div class="list-title">Options</div>
+      <div class="list-title">Personal Info</div>
+      <RouterLink to="portfolio">
+        <a class="forget-pwd" >My Portfolio Web</a>
+      </RouterLink>
 
         <div class="list-content">
           <div class="edit-view">
@@ -67,6 +70,7 @@
             </div>
             
           </div>
+          <div class="list-title" style="margin-top: 2vh;">Statics and Analytics</div>
         <div style="height: 300px;" ref="visitChartDiv"></div>
           
         </div>
@@ -83,9 +87,11 @@ import HeaderThree from "../components/header/HeaderThree";
 import {BASE_URL} from "../utils/BASE"
 import authorization from "../utils/authorization"
 import echarts from "echarts"
+import { RouterLink } from "vue-router";
 export default {
    components: {
        HeaderThree,
+       RouterLink
    },
  data() {
    return {

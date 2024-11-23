@@ -69,6 +69,12 @@ import PortfolioFive from "../components/portfolio/PortfolioFive.vue";
           if (this.type == 'Mini') {
               this.newPath = '/minimal-agencyShow'
           }
+          if (this.type == 'Free') {
+              this.newPath = '/freelancerShow'
+          }
+          if (this.type == 'Agency') {
+              this.newPath = '/agencyShow'
+          }
           this.$router.push({path: this.newPath, query: {id: this.id}}); 
     }
   };

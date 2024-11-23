@@ -44,12 +44,13 @@
 import VueMasonryWall from "vue-masonry-wall";
 import axios from 'axios';
 import {BASE_URL} from "../../utils/BASE"
+import img from "../../assets/img/project/port-4/portfolio-5.jpg"
 export default {
   components: { VueMasonryWall },
   data() {
     return {
 
-      defaultImage: "../../assets/img/project/port-4/portfolio-5.jpg",
+      defaultImage: img,
       tab: null,
       index: null,
       options: {
@@ -63,26 +64,7 @@ export default {
           id: 1,
           name: "All",
         },
-        {
-          id: 2,
-          name: "Freelancer",
-        },
-        {
-          id: 3,
-          name: "Developer",
-        },
-        {
-          id: 4,
-          name: "Photographer",
-        },
-        {
-          id: 5,
-          name: "Designer",
-        },
-        {
-          id: 6,
-          name: "Others",
-        },
+        
       ],
       tabContent: []
     };
@@ -94,8 +76,10 @@ export default {
     getImageSrc(note) { 
       if (note.pic && note.pic.length > 0 && note.pic[0].pic) { 
         return BASE_URL + note.pic[0].pic; 
-      } 
-      return this.defaultImage; 
+      } else {
+              return this.defaultImage; 
+      }
+
       },
       getUserName(note) { 
         if (note && note.user && note.user.nickname) { 
@@ -107,7 +91,13 @@ export default {
       },
     async fetchNotes() {
       try {
-        const response = await axios.get('api/notes');
+        const token = localStorage.getItem('access');
+        const response = await axios.get('api/notes',
+          {headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Bearer ' + token,
+          }},
+        );
         const notes = response.data;
         this.tabContent = this.tabItems.map(tab => ({
           id: tab.id,

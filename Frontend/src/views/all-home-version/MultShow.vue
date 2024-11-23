@@ -1,6 +1,5 @@
 <template>
     <div>
-      <HeaderShow :email="Email"></HeaderShow>
 
   
       <hooper :settings="settings" class="multiscroll-slider-wrapper">
@@ -129,6 +128,10 @@
         <hooper-pagination slot="hooper-addons"></hooper-pagination>
       </hooper>
       <!-- End hooper slider content -->
+       <div style="display: flex; justify-content: center;">
+      <HeaderShow :Email="Email"></HeaderShow>
+
+       </div>
     </div>
   </template>
   

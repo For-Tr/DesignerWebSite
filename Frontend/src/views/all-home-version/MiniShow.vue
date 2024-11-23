@@ -1,8 +1,6 @@
 <template>
     <div class="box-layout">
-        <HeaderShow>
-  
-</HeaderShow>
+
 <div>
     <div
       class="slider slider--3 ptb--200 pl--150 rfanimation-style--2"
@@ -76,8 +74,8 @@
         <div class="text-left rn-skill rn-plr section-ptb-xl">
             <div class="content">
 
-    <!-- Start Single Progress Bar -->
-    <div class="progress_wrapper">
+   <!-- Start Single Progress Bar -->
+   <div class="progress_wrapper">
       <h2 class="section-title text-left">My Skill</h2>
       <div class="single-skill">
         <p>{{ newForm.text7 }}</p>
@@ -88,12 +86,12 @@
           <div
             class="progress-bar wow fadeInLeft progress-bar-bg--1"
             role="progressbar"
-            style="width: 100%;"
+             :style="{ width: newForm.text10 + '%' }"
             aria-valuenow="100"
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            <span class="percent-label">100%</span>
+            <span class="percent-label">{{ newForm.text10 }}%</span>
           </div>
         </div>
       </div>
@@ -107,12 +105,12 @@
           <div
             class="progress-bar wow fadeInLeft progress-bar-bg--1"
             role="progressbar"
-            style="width: 80%;"
+           :style="{ width: newForm.text11 + '%' }"
             aria-valuenow="80"
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            <span class="percent-label">80%</span>
+            <span class="percent-label">{{ newForm.text11 }}%</span>
           </div>
         </div>
       </div>
@@ -126,12 +124,12 @@
           <div
             class="progress-bar wow fadeInLeft progress-bar-bg--1"
             role="progressbar"
-            style="width: 90%;"
+            :style="{ width: newForm.text12 + '%' }"
             aria-valuenow="90"
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            <span class="percent-label">90%</span>
+            <span class="percent-label">{{ newForm.text12 }}%</span>
           </div>
         </div>
       </div>
@@ -149,9 +147,12 @@
   </div>
       </div>
       <!-- End Story Area -->
+<div style="display: flex; justify-content: center;">
+  <HeaderShow :Email="Email"></HeaderShow>
 
-  
+</div>
     </div>
+    
   </template>
   
   <script>

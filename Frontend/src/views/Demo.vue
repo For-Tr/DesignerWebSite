@@ -121,6 +121,22 @@
             href: "/freelancer",
           },
           {
+            src: require("../assets/img/demos/home-7.jpg"),
+            title: "Parallax",
+            href: "/parallax-home",
+          },
+          {
+            src: require("../assets/img/demos/home-8.jpg"),
+            title: "Agencies",
+            href: "/agency",
+          },
+
+          {
+            src: require("../assets/img/demos/home-1.jpg"),
+            title: "Main Demo",
+            href: "/main-demo",
+          },
+          {
             src: require("../assets/img/demos/home-6.jpg"),
             title: "Vertical Portfolio",
             href: "/vertical-portfolio",
@@ -130,27 +146,14 @@
             title: "Creative Portfolio",
             href: "/creative-portfolio",
           },
-          {
-            src: require("../assets/img/demos/home-8.jpg"),
-            title: "Agencies",
-            href: "/agency",
-          },
-          {
-            src: require("../assets/img/demos/home-1.jpg"),
-            title: "Main Demo",
-            href: "/main-demo",
-          },
+        
 
           {
             src: require("../assets/img/demos/home-4.jpg"),
             title: "Designer Portfolio",
             href: "/designer-portfolio",
           },
-          {
-            src: require("../assets/img/demos/home-7.jpg"),
-            title: "Parallax",
-            href: "/parallax-home",
-          },
+        
           {
             src: require("../assets/img/demos/home-coming.jpg"),
             title: "More templates is coming",

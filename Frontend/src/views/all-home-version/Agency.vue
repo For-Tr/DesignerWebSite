@@ -16,10 +16,7 @@
         <PortfolioTwo />
       </v-container>
     </div>
-    <!-- End Portfolio Area -->
-    <Awards />
-    <News />
-    <Footer />
+
   </div>
 </template>
 
@@ -27,18 +24,13 @@
 
   import SliderTwo from "../../components/slider/SliderTwo";
   import PortfolioTwo from "../../components/portfolio/PortfolioTwo";
-  import Awards from "../../components/awards/Awards";
-  import News from "../../components/news/News";
-  import Footer from "../../components/footer/Footer";
 import HeaderMultiPageRoute from "../../components/header/HeaderMultiPageRoute.vue";
   export default {
     components: {
       HeaderMultiPageRoute,
       SliderTwo,
       PortfolioTwo,
-      Awards,
-      News,
-      Footer,
+
     },
     data() {
       return {};

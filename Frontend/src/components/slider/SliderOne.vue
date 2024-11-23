@@ -20,7 +20,7 @@
                   {{ slider.desc }}
                 </p>
                 <div class="slide-btn mt-10">
-                  <router-link class="rf-btn" to="/contact"
+                  <router-link class="rf-btn" to="/freelancer"
                     >Contact Us</router-link
                   >
                 </div>

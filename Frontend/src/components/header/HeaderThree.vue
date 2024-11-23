@@ -11,7 +11,7 @@
     >
     <div class="purchase-button" style="padding-left: 2vw;" v-if="hasLogin">
         <a
-          @click="goProfile"
+          @click="goProfile" title="Dashboard" style="pointer-events: auto;"
           >{{ username }}</a
         >
         <a  @click="logOut">
@@ -94,6 +94,7 @@
         <a
           target="_blank"
           @click="goProfile"
+          title="Dashboard" style="pointer-events: auto;"
           >{{ username }}</a
         >
         <a style="margin-left: 1vw;" @click="logOut">
@@ -121,9 +122,8 @@
       drawer: false,
       items: [
         { title: "Home", to: "/" },
-        { title: "Portfolio", to: "/portfolio" },
-        { title: "Blog", to: "/blog" },
-        { title: "Contact", to: "/contact" },
+       
+        { title: "Contact Web Developer", to: "/contact" },
       ],
       icon: "menu",
       hasLogin: false,

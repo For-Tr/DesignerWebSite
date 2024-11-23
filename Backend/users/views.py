@@ -30,37 +30,41 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return super().get_permissions()
 
+
 @api_view(['GET'])
 def verify_email(request):
     email = request.GET.get('email')
     code = request.GET.get('code')
 
+    if not email or not code:
+        return Response({
+            'detail': 'Email and verification code are required'
+        }, status=status.HTTP_400_BAD_REQUEST)
+
     try:
         verification_record = email_reset.objects.get(email_address=email, vc_code=code)
-    except email_reset.DoesNotExist:
-        # 验证记录不存在，可以显示错误信息或重定向到错误页面
+        user = User.objects.get(email=email)
+        user.is_email_verified = True
+        user.save()
+
         return Response({
-        'status': 500,
-        'msg': '验证邮件失效，请重新注册',
+            'detail': 'Email verification successful'
+        }, status=status.HTTP_200_OK)
 
-    })
+    except email_reset.DoesNotExist:
+        return Response({
+            'detail': 'Invalid or expired verification code'
+        }, status=status.HTTP_400_BAD_REQUEST)
+
     except MultipleObjectsReturned:
-        # 查询到多条记录，提示“邮箱已注册过”或其他适当的错误信息
-        error_message = "邮箱已注册过"
-        return render(request, 'error.html', {'error_message': error_message})
+        return Response({
+            'detail': 'Email already registered'
+        }, status=status.HTTP_400_BAD_REQUEST)
 
-    # 更新用户的邮箱验证状态
-    user = User.objects.get(email=email)
-    user.is_email_verified = True
-    user.save()
-
-    # 验证成功，可以重定向到成功页面或其他操作
-    return Response({
-        'status': 201,
-        'msg': '验证成功',
-
-    })
-
+    except Exception as e:
+        return Response({
+            'detail': str(e)
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
@@ -69,40 +73,86 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.user
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.user
 
-        if not user.is_email_verified:
-            return Response({'detail': '邮箱未验证，无法登录。'}, status=401)
+            if not user.is_email_verified:
+                return Response(
+                    {'detail': 'Email not verified. Please verify your email first.'},
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
 
-        refresh = RefreshToken.for_user(user)
-        response_data = {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'username': str(user.username)
-        }
-        return Response(response_data)
+            refresh = RefreshToken.for_user(user)
+            response_data = {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'username': str(user.username)
+            }
+            return Response(response_data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            if 'No active account found' in str(e):
+                return Response(
+                    {'detail': 'Invalid credentials. Please check your email and password.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            return Response(
+                {'detail': 'Login failed. Please try again.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 
-# 用户信息
-@api_view(['GET'])  # 只接受get请求
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 def info(request):
-    if request.method == 'GET':
+    try:
         email = request.GET.get('email')
+        if not email:
+            return Response(
+                {'detail': 'Email parameter is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         user = User.objects.get(email=email)
         serializer = UserSerializer(user)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except User.DoesNotExist:
+        return Response(
+            {'detail': 'User not found'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as e:
+        return Response(
+            {'detail': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
 
 @api_view(['POST'])
+@authentication_classes([JWTAuthentication])
 def edit_user(request):
+    try:
+        user = request.user
+        serializer = UserSerializer(user, data=request.data, partial=True)
 
-    print(request.data)
-    user = request.user
-    serializer = UserSerializer(user, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        print(serializer.data)
-        return Response(serializer.data)
-    else:
-        return Response('Failed')
+        if serializer.is_valid():
+            # Handle password separately if it's being updated
+            if 'password' in request.data:
+                serializer.validated_data['password'] = make_password(request.data['password'])
+
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    except Exception as e:
+        return Response(
+            {'detail': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
