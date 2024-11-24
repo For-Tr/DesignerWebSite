@@ -12,18 +12,6 @@
               <span class="copy">{{ slider.info }}</span>
               <h2 class="copy2">{{ slider.title }}</h2>
               <p class="excerpt copy3">{{ slider.desc }}</p>
-              <ul class="social-icon hover-icon icon-position">
-                <li>
-                  <a
-                    v-for="(icon, i) in slider.socialIconList"
-                    :key="i"
-                    :data-hover="icon.dataHover"
-                    :href="icon.url"
-                    target="_blank"
-                    >{{ icon.name }} <span class="circle"></span
-                  ></a>
-                </li>
-              </ul>
             </div>
           </div>
 
@@ -49,165 +37,35 @@
             info: "Hello!",
             title: "I’m Ms. Rainfo",
             desc: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.`,
-            socialIconList: [
-              {
-                name: "FB",
-                dataHover: "FB",
-                url: "https://www.facebook.com/",
-              },
-              {
-                name: "DB",
-                dataHover: "DB",
-                url: "https://dribbble.com/",
-              },
-              {
-                name: "Be",
-                dataHover: "Be",
-                url: "https://www.behance.net/",
-              },
-              {
-                name: "Tw",
-                dataHover: "Tw",
-                url: "https://twitter.com/",
-              },
-              {
-                name: "Co",
-                dataHover: "Co",
-                url: "https://codepen.io/",
-              },
-            ],
+
           },
           {
             src: require("../../assets/img/slider/slider-2.jpg"),
             info: "What I Do!",
             title: "Development",
             desc: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.`,
-            socialIconList: [
-              {
-                name: "FB",
-                dataHover: "FB",
-                url: "https://www.facebook.com/",
-              },
-              {
-                name: "DB",
-                dataHover: "DB",
-                url: "https://dribbble.com/",
-              },
-              {
-                name: "Be",
-                dataHover: "Be",
-                url: "https://www.behance.net/",
-              },
-              {
-                name: "Tw",
-                dataHover: "Tw",
-                url: "https://twitter.com/",
-              },
-              {
-                name: "Co",
-                dataHover: "Co",
-                url: "https://codepen.io/",
-              },
-            ],
+         
           },
           {
             src: require("../../assets/img/slider/slider-3.jpg"),
             info: "What I Do!",
             title: "UX Research",
             desc: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.`,
-            socialIconList: [
-              {
-                name: "FB",
-                dataHover: "FB",
-                url: "https://www.facebook.com/",
-              },
-              {
-                name: "DB",
-                dataHover: "DB",
-                url: "https://dribbble.com/",
-              },
-              {
-                name: "Be",
-                dataHover: "Be",
-                url: "https://www.behance.net/",
-              },
-              {
-                name: "Tw",
-                dataHover: "Tw",
-                url: "https://twitter.com/",
-              },
-              {
-                name: "Co",
-                dataHover: "Co",
-                url: "https://codepen.io/",
-              },
-            ],
+          
           },
           {
             src: require("../../assets/img/slider/slider-4.jpg"),
             info: "What I Do!",
             title: "Visual Design",
             desc: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.`,
-            socialIconList: [
-              {
-                name: "FB",
-                dataHover: "FB",
-                url: "https://www.facebook.com/",
-              },
-              {
-                name: "DB",
-                dataHover: "DB",
-                url: "https://dribbble.com/",
-              },
-              {
-                name: "Be",
-                dataHover: "Be",
-                url: "https://www.behance.net/",
-              },
-              {
-                name: "Tw",
-                dataHover: "Tw",
-                url: "https://twitter.com/",
-              },
-              {
-                name: "Co",
-                dataHover: "Co",
-                url: "https://codepen.io/",
-              },
-            ],
+          
           },
           {
             src: require("../../assets/img/slider/slider-5.jpg"),
             info: "What I Do!",
             title: "Development",
             desc: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.`,
-            socialIconList: [
-              {
-                name: "FB",
-                dataHover: "FB",
-                url: "https://www.facebook.com/",
-              },
-              {
-                name: "DB",
-                dataHover: "DB",
-                url: "https://dribbble.com/",
-              },
-              {
-                name: "Be",
-                dataHover: "Be",
-                url: "https://www.behance.net/",
-              },
-              {
-                name: "Tw",
-                dataHover: "Tw",
-                url: "https://twitter.com/",
-              },
-              {
-                name: "Co",
-                dataHover: "Co",
-                url: "https://codepen.io/",
-              },
-            ],
+           
           },
         ],
         settings: {

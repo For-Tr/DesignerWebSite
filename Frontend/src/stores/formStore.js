@@ -18,6 +18,7 @@ export const useFormStore = defineStore('form', {
       text12: undefined,
       text13: undefined,
       text14: undefined,
+      text15: undefined,
       pic1: undefined,
       pic2: undefined,
       pic3: undefined,

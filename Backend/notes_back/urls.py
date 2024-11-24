@@ -42,6 +42,6 @@ urlpatterns = [
                   path('api/getuser/', info),
                   path('api/edit_user/', edit_user),
                   path('api/notes/', include('notes.urls', namespace='notes')),
-
+                  path('social-auth/', include('social_django.urls', namespace='social')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 媒体文件路径
 urlpatterns += router.urls

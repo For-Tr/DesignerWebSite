@@ -1,17 +1,35 @@
 <template>
-
-    <div>
+  <div>
     <HeaderThree />
+    <div class="container">
+      <div class="login-page pc-style">
+        <img src="../assets/img/logo/logo.jpg" alt="logo" class="logo-icon">
+        <div class="login-tab">
+          <div class="tab-selected">
+            <span class="title">LOGIN</span>
+            <span class="tabline tabline-width"></span>
+          </div>
+        </div>
+        
+        <!-- LinkedIn Login Button -->
+        <div class="social-login">
+          <button class="linkedin-btn" @click="handleLinkedInLogin">
+            <i class="fab fa-linkedin"></i>
+            Sign in with LinkedIn
+          </button>
+        </div>
+        
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <!-- Original login form -->
+        <div class="mail-login" type="login">
  <div class="container">
 
     <div class="login-page pc-style">
-      <img src="../assets/img/logo/logo.jpg" alt="logo" class="logo-icon">
-      <div class="login-tab">
-        <div class="tab-selected">
-          <span class="title">LOGIN</span>
-          <span class="tabline tabline-width"></span>
-        </div>
-      </div>
+      
+
       <div class="mail-login" type="login">
         <div class="common-input">
           <img src='../assets/images/mail-icon.svg' class="left-icon">
@@ -41,12 +59,14 @@
   </div>
 
     </div>
- 
+  </div>
+    </div>
+  </div>
 </template>
 <script>
 import axios from "axios";
 import HeaderThree from "../components/header/HeaderThree";
-
+import {BASE_URL} from "../utils/BASE"
 export default {
   components: {
     HeaderThree,
@@ -62,6 +82,9 @@ export default {
     };
   },
   methods: {
+    handleLinkedInLogin() {
+      window.location.href = BASE_URL + '/social-auth/login/linkedin-oauth2/';
+    },
     handleLogin() {
       // Validate form fields
       if (!this.pageData.loginForm.email || !this.pageData.loginForm.password) {
@@ -129,6 +152,66 @@ export default {
 };
 </script>
 <style scoped>
+.social-login {
+  padding: 0 28px;
+  margin-bottom: 20px;
+}
+
+.linkedin-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #0077b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.linkedin-btn:hover {
+  background-color: #006097;
+}
+
+.linkedin-btn i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 28px;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: #c3c9d5;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.divider span {
+  background-color: white;
+  padding: 0 10px;
+  color: #666;
+  font-size: 12px;
+}
 div {
   display: block;
 }

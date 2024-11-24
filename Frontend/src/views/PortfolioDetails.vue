@@ -75,6 +75,12 @@ import PortfolioFive from "../components/portfolio/PortfolioFive.vue";
           if (this.type == 'Agency') {
               this.newPath = '/agencyShow'
           }
+          if (this.type == 'Para') {
+              this.newPath = '/parallax-homeShow'
+          }
+          if (this.type == 'Main') {
+              this.newPath = '/main-demoShow'
+          }
           this.$router.push({path: this.newPath, query: {id: this.id}}); 
     }
   };

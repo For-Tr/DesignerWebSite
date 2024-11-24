@@ -97,6 +97,33 @@ const routes = [{
             import ('../views/all-home-version/MainDemo.vue')
     },
     {
+        path: '/main-demoPre',
+        name: 'MainDemoPre',
+        meta: {
+            title: 'PBuilder || Pre'
+        },
+        component: () =>
+            import ('../views/all-home-version/MainPre.vue')
+    },
+    {
+        path: '/main-demoEdit',
+        name: 'MainDemoEdit',
+        meta: {
+            title: 'PBuilder || Edit'
+        },
+        component: () =>
+            import ('../views/all-home-version/MainEdit.vue')
+    },
+    {
+        path: '/main-demoShow',
+        name: 'MainDemoShow',
+        meta: {
+            title: 'PBuilder || Show'
+        },
+        component: () =>
+            import ('../views/all-home-version/MainShow.vue')
+    },
+    {
         path: '/freelancer',
         name: 'Freelancer',
         meta: {
@@ -285,6 +312,33 @@ const routes = [{
         },
         component: () =>
             import ('../views/all-home-version/ParallaxHome.vue')
+    },
+    {
+        path: '/parallax-homePre',
+        name: 'ParallaxHomePre',
+        meta: {
+            title: 'PBuilder || Pre'
+        },
+        component: () =>
+            import ('../views/all-home-version/ParaPre.vue')
+    },
+    {
+        path: '/parallax-homeEdit',
+        name: 'ParallaxHomeEdit',
+        meta: {
+            title: 'PBuilder || Edit'
+        },
+        component: () =>
+            import ('../views/all-home-version/ParaEdit.vue')
+    },
+    {
+        path: '/parallax-homeShow',
+        name: 'ParallaxHomeShow',
+        meta: {
+            title: 'PBuilder || Show'
+        },
+        component: () =>
+            import ('../views/all-home-version/ParaShow.vue')
     },
 
    

@@ -21,7 +21,7 @@ async function authorization() {
         try {
             let response = await axios.post('/api/token/refresh/', {refresh: refreshToken});
 
-            const nextExpiredTime = Date.parse(response.headers.date) + 60  * 1000;
+            const nextExpiredTime = Date.parse(response.headers.date) + 60  * 1000 * 24 * 60;
 
             storage.setItem('access', response.data.access);
             storage.setItem('expiredTime', nextExpiredTime);
