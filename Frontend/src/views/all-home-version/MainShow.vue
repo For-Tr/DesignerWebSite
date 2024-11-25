@@ -31,7 +31,10 @@
       </div>
       <!-- End Slider Area -->
   
-     
+      <div style="display: flex; justify-content: center;">
+      <HeaderShow :Email="Email"></HeaderShow>
+
+       </div>
     </div>
   </template>
 
@@ -40,9 +43,10 @@
     import axios from 'axios';
 import {BASE_URL} from "../../utils/BASE"
   import VueSlickCarousel from "vue-slick-carousel";
+  import HeaderShow from '../../components/header/HeaderShow.vue';
   // import Social from "../social/Social";
   export default {
-    components: { VueSlickCarousel },
+    components: { VueSlickCarousel, HeaderShow },
     data() {
         const newForm = {
     pic1: require("../../assets/img/bg/bg-image-14.jpg"),

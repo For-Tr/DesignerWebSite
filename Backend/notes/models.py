@@ -14,6 +14,8 @@ class Text(models.Model):
 class Pic(models.Model):
     order_num = models.PositiveIntegerField(blank=False, null=False)
     pic = models.ImageField(upload_to='pic/', null=False)
+    video = models.FileField(upload_to='video/', null=True, blank=True)
+    media_type = models.CharField(max_length=10, choices=[('image', '图片'), ('video', '视频')], default='image')
 
 
 class Note(models.Model):

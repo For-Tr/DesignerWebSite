@@ -93,14 +93,21 @@
         </v-container>
       </div>
       <!-- End Hero Area -->
-  
+      <div style="display: flex; justify-content: center;">
+      <HeaderShow :Email="Email"></HeaderShow>
+
+       </div>
     </div>
     </template>
   
   <script>
     import axios from 'axios';
 import {BASE_URL} from "../../utils/BASE"
+import HeaderShow from '../../components/header/HeaderShow.vue';
     export default {
+      components : {
+HeaderShow
+      },
       data() {
         const newForm = {
     pic1: require("../../assets/img/bg/bg-image-14.jpg"),

@@ -122,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -164,11 +164,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 
 
-# LinkedIn OAuth2 Settings
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '78qzgi3x898t0n'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'WPL_AP1.SwoYFFdIh3xDLhFD.i8TvOg=='
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_liteprofile', 'r_emailaddress']
-SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['email-address', 'formatted-name']
+
+
+# 由于使用了新的 API，需要更新字段选择器
+
+
+# 移除旧的字段选择器配置
+# SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['formatted-name']  # 删除这行
+
+# 使用新的数据映射
+
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
@@ -177,23 +182,35 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Login URLs
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = '/#authenticate'
+LOGOUT_URL = '/user/logout'
+LOGIN_REDIRECT_URL = '/accounts/'
+LOGOUT_REDIRECT_URL = '/'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '78qzgi3x898t0n'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'WPL_AP1.SwoYFFdIh3xDLhFD.i8TvOg=='
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['openid', 'profile', 'email']
 
-# Social auth pipeline
+
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = [
+'email-address', 'headline', 'industry']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
+('id', 'id'),
+('first-name', 'first_name'),
+('last-name', 'last_name'),
+('email-address', 'email_address'),
+('industry', 'industry'),
+]
+
 SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.auth_allowed',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.user.get_username',
-    'social_core.pipeline.user.create_user',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
+'social_core.pipeline.social_auth.social_details',
+'social_core.pipeline.social_auth.social_uid',
+'social_core.pipeline.social_auth.auth_allowed',
+'social_core.pipeline.social_auth.social_user',
+'social_core.pipeline.user.get_username',
+'social_core.pipeline.social_auth.associate_by_email',
+'social_core.pipeline.user.create_user',
+'social_core.pipeline.social_auth.associate_user',
+'social_core.pipeline.social_auth.load_extra_data',
+'social_core.pipeline.user.user_details',
 )
-SOCIAL_AUTH_LINKEDIN_OAUTH2_CALLBACK = 'http://localhost:8000/social-auth/complete/linkedin-oauth2/'
-# Social auth settings
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
+

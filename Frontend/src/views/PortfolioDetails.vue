@@ -55,31 +55,54 @@ import PortfolioFive from "../components/portfolio/PortfolioFive.vue";
       return{
         id : null,
         type: null,  
-        newPath:null
+        newPath:null,
+        status: null,
+
       }
 
     },
     mounted() {
           this.id = this.$route.params.id
           this.type = this.$route.params.type
+          this.status = this.$route.params.status
           console.log(this.id)
           if (this.type == 'Mult') {
-              this.newPath = '/multiscroll-portfolioShow'
+            if (this.status == 'edit') {
+              this.newPath = '/multiscroll-portfolioEdit'
+            } else {
+                this.newPath = '/multiscroll-portfolioShow'
+            }
+             
           }
           if (this.type == 'Mini') {
-              this.newPath = '/minimal-agencyShow'
+            if (this.status == 'edit') {
+              this.newPath = '/minimal-agencyEdit'
+            } else {
+              this.newPath = '/minimal-agencyShow'}
           }
           if (this.type == 'Free') {
-              this.newPath = '/freelancerShow'
+            if (this.status == 'edit') {
+              this.newPath = '/freelancerEdit'
+            } else {
+              this.newPath = '/freelancerShow'}
           }
           if (this.type == 'Agency') {
-              this.newPath = '/agencyShow'
+            if (this.status == 'edit') {
+              this.newPath = '/agencyEdit'
+            } else {
+              this.newPath = '/agencyShow'}
           }
           if (this.type == 'Para') {
-              this.newPath = '/parallax-homeShow'
+            if (this.status == 'edit') {
+              this.newPath = '/parallax-homeEdit'
+            } else {
+              this.newPath = '/parallax-homeShow'}
           }
           if (this.type == 'Main') {
-              this.newPath = '/main-demoShow'
+            if (this.status == 'edit') {
+              this.newPath = '/main-demoEdit'
+            } else {
+              this.newPath = '/main-demoShow'}
           }
           this.$router.push({path: this.newPath, query: {id: this.id}}); 
     }

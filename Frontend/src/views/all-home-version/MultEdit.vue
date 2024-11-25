@@ -193,8 +193,16 @@
       </div>
 
       <div v-else class="purchase-button" style="display: flex; justify-content: center;">
-        <a target="_blank" @click="handleGenerate" :disabled="loading">generate</a >
-      </div>
+          <div v-if="edit">
+          <a target="_blank" @click="handleEdit" :disabled="loading">Confirm Edit</a >
+            <a @click="handleDel" :disabled="loading" style="margin-left: 4vw;">Delete</a >
+
+          </div>
+          <div v-else>
+            <a target="_blank" @click="handleGenerate" :disabled="loading">generate</a >
+
+          </div>
+        </div>
     
     </form>
   </div>
@@ -211,6 +219,8 @@ export default {
       formStore,
       form: formStore.form,
       loading: false,
+      edit: false,
+
       currentDevice: 'desktop',
       deviceSettings: {
         mobile: {
@@ -253,6 +263,8 @@ export default {
   },
   mounted() {
   this.form.temp = 'Mult'
+  this.id = this.$route.query.id;
+  if (this.id) this.edit = true
   this.messageHandler = (event) => {
     if (event.origin !== 'http://localhost:8080') return;
     if (event.data.type === 'iframeReady') {
@@ -363,6 +375,74 @@ beforeUnmount() {
         }
       }
     },
+    async handleEdit() {
+        const formStore = useFormStore();
+        const token = localStorage.getItem('access');
+        this.loading = true; // Start loading
+  
+        try {
+          const formData = new FormData();
+  
+          Object.keys(formStore.form).forEach(key => {
+            if (formStore.form[key] !== undefined) {
+              formData.append(key, formStore.form[key]);
+            }
+          });
+  
+          const response = await axios.post('/api/notes/create', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': 'Bearer ' + token,
+            },
+          });
+  
+          console.log('Post successful:', response.data);
+          const currentPath = this.$router.currentRoute.path ;
+          const newPath = currentPath.slice(0, -4) + 'Show'; 
+          const url = newPath + '?id=' + response.data.id
+          const fullUrl = 'http://localhost:8080' + url;
+          const res = await axios.post(`/api/notes/delete/${this.id}/`, {
+            headers: {
+              'Authorization': 'Bearer ' + token,
+            },
+          });
+          console.log(res)
+  const result = confirm('🎉Edit Successful!\nClick OK to view: \n' + fullUrl);
+  if (result) {
+      window.location.href = fullUrl;
+  }
+         
+        } catch (error) {
+          console.error(error)
+          alert('Generate failed, please try again:', error.message);
+        } finally {
+          this.loading = false; // End loading
+        }
+  
+      },
+      async handleDel() {
+        const token = localStorage.getItem('access');
+  
+        try {
+          const res = await axios.post(`/api/notes/delete/${this.id}/`, {
+            headers: {
+              'Authorization': 'Bearer ' + token,
+            },
+          });
+          console.log(res)
+  const result = confirm('Delete Success');
+  if (result) {
+      this.$router.push({name:'portfolio' })
+  }
+         
+        } catch (error) {
+          console.error(error)
+          alert('Failed');
+        } finally {
+          this.loading = false; // End loading
+        }
+  
+      },
     async handleGenerate() {
       const formStore = useFormStore();
       const token = localStorage.getItem('access');
@@ -377,6 +457,14 @@ beforeUnmount() {
           }
         });
 
+        console.log("1111");
+
+// 使用 entries() 方法遍历 FormData
+for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+}
+
+console.log("2222");
         const response = await axios.post('/api/notes/create', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',

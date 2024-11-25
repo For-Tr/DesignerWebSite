@@ -61,53 +61,98 @@
  
 </template>
 <script>
-  import axios from "axios";
+import axios from "axios";
 import HeaderThree from "../components/header/HeaderThree";
+
 export default {
     components: {
         HeaderThree,
     },
-  data() {
-    return {
-      registing: false,
-      pageData: {
-        loginForm: {
-            username: '',
-          email: '',
-          password: '',
-          repassword: '',
-        }
-      }
-    };
-  },
-  methods: {
-    handleRegister() {
-      if(this.registing) {
-        alert(1)
-        return;
-      }
-      this.registing = true
-    const that = this;
-      axios.post('/api/user/',{
-        username:this.pageData.loginForm.username,
-        email:this.pageData.loginForm.email,
-        password:this.pageData.loginForm.password,
-        repassword:this.pageData.loginForm.repassword
-      }).then(function (response) {
-        console.log(response)
-        alert('Verify E-mail has been sent！Please login after verify');
-        that.registing = false
-        that.$router.push({name: 'login'})
-      }).catch((error) => {
-        alert("Check your email address or change the username")
-        console.log(error)
-        that.registing = false
-      }) 
+    data() {
+        return {
+            registing: false,
+            pageData: {
+                loginForm: {
+                    username: '',
+                    email: '',
+                    password: '',
+                    repassword: '',
+                }
+            }
+        };
     },
-    handleLogin() {
-      this.$router.push({name: 'login'})
+    methods: {
+        validateForm() {
+            if (!this.pageData.loginForm.username.trim()) {
+                alert("Please enter username");
+                return false;
+            }
+            if (!this.pageData.loginForm.email.trim()) {
+                alert("Please enter email");
+                return false;
+            }
+            if (!this.validateEmail(this.pageData.loginForm.email)) {
+                alert("Invalid email format");
+                return false;
+            }
+            if (!this.pageData.loginForm.password) {
+                alert("Please enter password");
+                return false;
+            }
+            if (this.pageData.loginForm.password !== this.pageData.loginForm.repassword) {
+                alert("Passwords do not match");
+                return false;
+            }
+            return true;
+        },
+
+        validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        },
+
+        handleRegister() {
+            if (this.registing) {
+                return;
+            }
+            
+            if (!this.validateForm()) {
+                return;
+            }
+
+            this.registing = true;
+            
+            axios.post('/api/user/', {
+                username: this.pageData.loginForm.username,
+                email: this.pageData.loginForm.email,
+                password: this.pageData.loginForm.password,
+                repassword: this.pageData.loginForm.repassword
+            }).then(response => {
+              console.log(response)
+                alert('Verification email has been sent! Please login after verify');
+                this.$router.push({name: 'login'});
+            }).catch(error => {
+                let errorMessage = 'Registration failed.';
+                
+                if (error.response && error.response.data) {
+                    if (typeof error.response.data === 'string') {
+                        errorMessage = error.response.data;
+                    } else if (typeof error.response.data === 'object') {
+                        const firstError = Object.values(error.response.data)[0];
+                        errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
+                    }
+                }
+                
+                alert(errorMessage);
+            }).finally(() => {
+                this.registing = false;
+            });
+        },
+
+        handleLogin() {
+            this.$router.push({name: 'login'});
+        }
     }
-  }
 };
 </script>
 <style scoped>

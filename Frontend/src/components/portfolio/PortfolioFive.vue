@@ -25,9 +25,9 @@
                 <div class="port-hover-action">
                   <div class="content">
                     <h3>
-                      <router-link to="/portfolio-details">{{
-                        item.title
-                      }}</router-link>
+                      <router-link :to="{ name: 'PortfolioDetails', params: { id: item.noteId, type: item.noteType, status: 'edit' }}">
+                        Edit
+                      </router-link>
                     </h3>
                   </div>
                 </div>

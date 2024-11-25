@@ -45,6 +45,7 @@ def verify_email(request):
         verification_record = email_reset.objects.get(email_address=email, vc_code=code)
         user = User.objects.get(email=email)
         user.is_email_verified = True
+        user.is_active = True
         user.save()
 
         return Response({
@@ -95,7 +96,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         except Exception as e:
             if 'No active account found' in str(e):
                 return Response(
-                    {'detail': 'Invalid credentials. Please check your email and password.'},
+                    {'detail': 'Invalid credentials.' + str(e)},
                     status=status.HTTP_400_BAD_REQUEST
                 )
             return Response(

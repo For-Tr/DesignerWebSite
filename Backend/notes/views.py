@@ -42,6 +42,7 @@ def create(request):
     note = Note()
     note.user = request.user
     note.save()
+
     for field_name, value in data.items():
         if field_name.startswith('text') and value:
             field_value = value
@@ -52,11 +53,24 @@ def create(request):
             note.text.add(text)
 
         elif field_name.startswith('pic'):
-            # 处理图片数据
             file = value if value else None
             if file:
                 pic = Pic()
-                pic.pic = file
+                # 获取文件名并转换为小写
+                file_name = str(file).lower()
+                # 视频文件扩展名列表
+                video_extensions = ['.mp4', '.avi', '.mov', '.wmv', '.flv', '.mkv', '.webm']
+
+                # 判断是否为视频文件
+                is_video = any(file_name.endswith(ext) for ext in video_extensions)
+
+                if is_video:
+                    pic.video = file
+                    pic.media_type = 'video'
+                else:
+                    pic.pic = file
+                    pic.media_type = 'image'
+
                 pic.order_num = re.search(r'\d+', field_name).group()
                 pic.save()
                 note.pic.add(pic)
@@ -64,6 +78,7 @@ def create(request):
             note.temp = value if value else None
             note.save()
             print(note.temp)
+
     serializer = ThingSerializer(note)
     return Response(serializer.data)
 
@@ -85,11 +100,9 @@ def update(request):
 
 
 @api_view(['POST'])
-def delete(request):
+def delete(request, pk):
     try:
-        ids = request.GET.get('ids')
-        ids_arr = ids.split(',')
-        Note.objects.filter(id__in=ids_arr).delete()
+        Note.objects.get(pk=pk).delete()
     except Note.DoesNotExist:
         return Response({'status': 500})
     return Response({'status': 200})
